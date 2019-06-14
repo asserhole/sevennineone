@@ -73,11 +73,30 @@ export const addAddress = (params) => {
   })
 }
 
-// 删除用户地址
-export const deleteAddress = (params) => {
+
+// 发送验证码
+export const sendSms = (params) =>{
   return request({
-    url: `${prefix}/deleteAddress`,
-    method: 'DELETE',
+    url: `/snoUser/sendSms`,
+    method: 'GET',
+    data: params,
+  })
+}
+
+// 绑定手机号
+export const bingPhone = (params) =>{
+  return request({
+    url: `/snoUser/bindPhone`,
+    method: 'GET',
+    data: params,
+  })
+}
+
+// 获取用户手机号
+export const getMobileInfo = (params) =>{
+  return request({
+    url: `/snoUser/getMobileInfo`,
+    method: 'GET',
     data: params,
   })
 }

@@ -9,10 +9,13 @@ const store = () => new Vuex.Store({
 
     state: state,
     mutations: {
-        setUserinfo (state,local_userinfo) {
-            state.local_userinfo = local_userinfo
+        setGiftBarShowStatus(state, giftBarshow){
+            state.giftBarShow = giftBarshow
         },
-        setOpenid(state,openid){
+        setSkuShowStatus(state, skushow){
+            state.skuShow = skushow
+        },
+        setOpenid(state, openid){
             state.openid = openid
         }
     }

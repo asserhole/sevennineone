@@ -1,7 +1,7 @@
 <template>
     <div class="activity-page">
         <div class="activity-content">
-            <div @click="$router.push({path:'/activity',query:{aid:item.id}})" class="activity-item" v-for="(item,index) in activities">
+            <div @click="$router.push({name:'activity-aid',params:{aid:item.id}})" class="activity-item" v-for="(item,index) in activities">
                 <div class="activity-item-img">
                     <img :src="item.logo" />
                 </div>

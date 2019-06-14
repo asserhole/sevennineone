@@ -22,6 +22,12 @@ export default {
     script: [
       { src: 'https://easytuan.gitee.io/node-elm-api/public/flexible.js' },
     ],
+    htmlAttrs: {
+      style:'font-size:12px'
+    },
+    bodyAttrs:{
+      style:'font-size:12px'
+    }
   },
 
   /*
@@ -35,7 +41,8 @@ export default {
   ** Global CSS
   */
   css: [
-    'normalize.css'
+    // 'normalize.css',
+    'font-awesome/css/font-awesome.min.css'
   ],
 
   /*
@@ -44,6 +51,11 @@ export default {
   plugins: [
     { src: '~plugins/mint-ui' },
     { src: '~assets/styles/base.scss' },
+    { src: '~plugins/vue2-hammer',ssr:false },
+    { src: '~plugins/filter'},
+    { src: '~plugins/vue-concise-slider', ssr: false },
+    { src: '~plugins/vant'},
+    { src: '~plugins/wechat',ssr:false},
   ],
 
   /*
@@ -68,7 +80,7 @@ export default {
   ** Build configuration
   */
   build: {
-    vendor: ['axios', 'mint-ui', 'js-cookie'],
+    vendor: ['axios', 'mint-ui', 'js-cookie','vue2-hammer','vant'],
     extend (config, { isDev, isClient }) {
       if (isDev && isClient) {
         config.module.rules.push({

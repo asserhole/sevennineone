@@ -41,3 +41,48 @@ export const listActivity = (params) =>{
     data: params,
   })
 }
+
+// 商家入驻
+export const saveMerchant = (params)=>{
+  return request({
+    url: `${prefix}/save`,
+    method: 'POST',
+    data: params,
+  })
+}
+
+//入驻历史信息查找
+export const getMerchantJoinInfo = (params)=>{
+  return request({
+    url: `${prefix}/getMerchantJoinInfo`,
+    method: 'GET',
+    data: params,
+  })
+}
+
+//通过token查找用户课程
+export const listSubjectByToken = (params)=>{
+  return request({
+    url: `${prefix}/listSubjectByToken`,
+    method: 'GET',
+    data: params,
+  })
+}
+
+// 保存课程
+export const saveSubjectBatch = (params)=>{
+  return request({
+    url: `${prefix}/saveBatch`,
+    method: 'POST',
+    data: params,
+  })
+}
+
+// 修改课程
+export const updateSubject = (params)=>{
+  return request({
+    url: `${prefix}/updateSubject`,
+    method: 'POST',
+    data: params,
+  })
+}

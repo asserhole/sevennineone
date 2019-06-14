@@ -1,13 +1,14 @@
 <template>
     <div class="a-content-merchant clearfix">
         <ul class="clearfix">
-            <li @click="" class="a-content-item clearfix" v-for="(r,i) in merchantList" :key="i">
+            <li @click="$router.push({name:'activity-aid-merchant-mid',params:{mid:r.id,aid:aid}})" class="a-content-item clearfix" v-for="(r,i) in merchantList" :key="i">
                 <span class="a-content-item_category">{{r.categoryName}}</span>
-                <div class="a-content-item_img">
-                    <img :src="r.logo" />
+                <div class="a-content-item_img" :style="'background-image:url('+r.logo+');'">
                 </div>
-                <p class="a-content-item_name">{{r.name}}</p>
-                <p class="a-content-item_express">联盟卡可体验次数：<span style="color:#fc6b79">{{r.experienceNum}}</span>次</p>
+                <div class="a-content-merchant-info">
+                    <p class="a-content-item_name">{{r.name}}</p>
+                    <p class="a-content-item_express">联盟卡可体验次数：<span style="color:#fc6b79">{{r.experienceNum}}</span>次</p>
+                </div>
             </li>
         </ul>
     </div>
@@ -19,29 +20,36 @@
         props:{
             merchantList:{
                 default:[]
+            },
+            aid:{
+                default:''
             }
-        },
-        methods:{
-
         }
     }
 </script>
 
 <style scoped>
     .a-content-item{
-        display: inline-block;
-        float:left;
-        width:47%;
         background-color: white;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04);
-        margin-left:2%;
         position: relative;
-        padding: 10px;
-        margin-bottom: 2%;
+        display: flex;
+        padding:8px 0px;
+        height:90px;
+    }
+    .a-content-item:after{
+        content:'';
+        height:1px;
+        left:64px;
+        width: 11rem;
+        background-color:#eee;
+        position: absolute;
+        bottom:0px;
     }
     .a-content-item_img{
         padding-top:5px;
         padding-bottom:5px;
+        width: 64px;
+        height: 64px;
     }
     .a-content-item p{
         padding-left:10px;
@@ -63,5 +71,10 @@
     }
     .a-content-item_express{
         color:#999;
+    }
+    .a-content-merchant-info{
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
     }
 </style>

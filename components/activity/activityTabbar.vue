@@ -108,7 +108,7 @@
             </div>
         </mt-tab-item>
         <mt-tab-item id="3">
-            <div @click="goPage(1)">
+            <div @click="goPage(3)">
                 <div class="mint-tab-item-icon">
                     <svg v-if="selected==3" t="1558159473296" class="icon" style="" viewBox="0 0 1024 1024"
                          version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="5105"
@@ -154,24 +154,24 @@
                 if (index !== this.selected) {
                     switch (index) {
                         case 0:
-                            this.$router.push({path: '/activity', query: {aid: this.aid}});
-                            return;
+                            this.$router.push({name: 'activity-aid',params: {aid: this.aid}});
+                            break;
                         case 1:
                             this.$router.push({path: '/activity', query: {aid: this.aid}});
-                            return;
+                            break;
                         case 2:
                             this.$router.push({path: '/activity', query: {aid: this.aid}});
-                            return;
+                            break;
                         case 3:
-                            this.$router.push({path: '/activity', query: {aid: this.aid}});
-                            return;
+                            this.$router.push({name: 'activity-aid-users', params: {aid: this.aid}});
+                            break;
                     }
                 }
             }
         },
         created() {
             this.selected = this.page
-        }
+        },
     }
 </script>
 

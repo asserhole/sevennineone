@@ -3,13 +3,13 @@
         <div class="a-head">
             <mt-swipe :auto="4000">
                 <mt-swipe-item>
-                    <img src="https://sevennineone.oss-cn-hangzhou.aliyuncs.com/default/b43fcc39412c17ff7c1a837df0a2962b.png" />
+                    <img src="https://sevennineone.oss-cn-hangzhou.aliyuncs.com/default/4f80a793ca9719f2446fa2d34dbe1a9a.jpg" />
                 </mt-swipe-item>
                 <mt-swipe-item>
-                    <img src="https://sevennineone.oss-cn-hangzhou.aliyuncs.com/default/b43fcc39412c17ff7c1a837df0a2962b.png" />
+                    <img src="https://sevennineone.oss-cn-hangzhou.aliyuncs.com/default/df8169bccda1cb448bc65b782e52627e.png" />
                 </mt-swipe-item>
                 <mt-swipe-item>
-                    <img src="https://sevennineone.oss-cn-hangzhou.aliyuncs.com/default/b43fcc39412c17ff7c1a837df0a2962b.png" />
+                    <img src="https://sevennineone.oss-cn-hangzhou.aliyuncs.com/default/da08764a8a4175aa3ff36d49f7f65dc2.png" />
                 </mt-swipe-item>
             </mt-swipe>
 
@@ -18,6 +18,10 @@
             <div class="a-content-warp clearfix">
                 <div class="a-title">
                     <p>{{activityPO.name}}</p>
+                    <div class="a-desc">
+                        <p>此活动由<span style="color:#fc6b79">hxy</span>发起:</p>
+                        <p style="text-indent:20px;">{{activityPO.poster}}</p>
+                    </div>
                 </div>
                 <div class="a-time">
                     <div class="clearfix">
@@ -34,17 +38,13 @@
                     </div>
                 </div>
                 <div class="a-content">
-                    <div class="a-desc">
-                        <p>此活动由<span style="color:#fc6b79">hxy</span>发起:</p>
-                        <p style="text-indent:20px;">{{activityPO.poster}}</p>
-                    </div>
-                    <p class="shoplist-title">—— 活动商家 ——</p>
-                    <ActivityMerchant :merchantList="activityPO.merchantList "/>
+                    <p class="shoplist-title">活动商家</p>
+                    <ActivityMerchant :merchantList="activityPO.merchantList" :aid="$route.params.aid"/>
                 </div>
             </div>
         </div>
 
-        <ActivityTabbar :page="0" :aid="aid"/>
+        <ActivityTabbar :page="0" :aid="$route.params.aid"/>
     </div>
 </template>
 
@@ -58,12 +58,12 @@
         name: "index",
         data(){
             return {
-                aid:null,
+
             }
         },
-        async asyncData({query}){
+        async asyncData({params}){
             const res = await getActivityById({
-                id:query.aid
+                id:params.aid
             })
             return {
                 activityPO:res.data
@@ -78,8 +78,7 @@
             ActivityTabbar,TimeDown,ActivityMerchant
         },
         mounted() {
-            this.aid = this.$route.query.aid
-            console.log(this.activityPO)
+
         }
     }
 </script>
@@ -87,51 +86,44 @@
 <style scoped>
     .a-head{
         width:100%;
-        height:150px;
+        height:180px;
         overflow: hidden;
     }
     .a-head img{
         width:100%;
-        height:150px;
+        height:190px;
     }
     .a-content-bg{
         width:100%;
-        background-image: url("https://sevennineone.oss-cn-hangzhou.aliyuncs.com/default/dbd1966fb2504c91744be1e1c18fdfe4.png?x-oss-process=image/sharpen,100/blur,r_4,s_3/bright,50");
-        background-attachment: fixed;
-        background-repeat: no-repeat;
         background-size: 100%;
         position: relative;
         box-sizing:border-box;
         padding-bottom:55px;
-        /* 作为默认  background: linear-gradient(to bottom, pink, white);*/
+        background: linear-gradient(to bottom, pink, white);
+    }
+    .a-content-warp>div{
+        margin:5px 20px;
+        background-color: white;
     }
     .a-title{
-        width:100%;
-        padding-top:20px;
-        padding-left:20px;
-
+        padding:15px;
     }
+
     .a-title>p{
         text-align: left;
         display: inline-block;
         z-index:12;
-        background-color: #08080808;
         font-size:20px;
-        color:white;
     }
     .a-time{
-        width:100%;
-        padding:20px;
-        top:60px;
+
     }
     .a-time>div{
-        background-color: white;
-        border-radius: 20px;
         font-size:20px;
     }
     .a-time>div svg{
         width:24px;
-        margin-left:20px;
+        margin-left:15px;
         float:left;
     }
     .a-time>div span{
@@ -146,22 +138,30 @@
         /*background-image: linear-gradient(to bottom , rgba(255, 255, 255, 0), rgb(251, 251, 251));*/
     }
     .a-content{
-        background-color: white;
-        border-radius: 5px;
-        margin:5px 5px;
+        padding:15px;
+    }
+    .a-content p{
+        position: relative;
+        padding-left:15px;
+        margin-bottom:10px;
+    }
+    .a-content p:before{
+        content:'';
+        position: absolute;
+        width:3px;
+        height:100%;
+        left:0;
+        top:0;
+        background-color: #999;
     }
     .a-desc{
         z-index:13;
         color:black;
         background-color: white;
-        padding:5px 20px;
-        font-size:14px;
         line-height: 20px;
     }
     .shoplist-title{
-        text-align: center;
-        font-size:14px;
-        margin:15px 0;
+        text-align: left;
     }
 
 </style>

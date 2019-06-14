@@ -22,10 +22,22 @@
     "@nuxtjs/pwa": "^2.6.0",
     "axios": "^0.18.0",
     "cross-env": "^5.2.0",
+    "font-awesome": "^4.7.0",
     "html-webpack-plugin": "^3.2.0",
+    "less": "^3.9.0",
+    "less-loader": "^5.0.0",
     "mint-ui": "^2.2.13",
     "normalize.css": "^8.0.1",
-    "nuxt": "^2.6.0"
+    "nuxt": "^2.6.0",
+    "vant": "^2.0.0-beta.2",
+    "vue-baidu-map": "^0.21.20",
+    "vue-concise-slider": "^3.3.9",
+    "vue-ydui": "^1.2.6",
+    "vue2-hammer": "^2.1.2",
+    "vux": "^2.9.4",
+    "vux-loader": "^1.2.9",
+    "weixin-js-sdk": "^1.4.0-test",
+    "yaml-loader": "^0.5.0"
   },
   "devDependencies": {
     "babel-eslint": "^10.0.1",

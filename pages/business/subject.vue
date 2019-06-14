@@ -1,0 +1,216 @@
+<template>
+    <!-- 入驻第二步，填写课程信息 -->
+    <div class="merchant-joinst">
+        <topback />
+        <van-cell value="课程设置" />
+
+        <div class="merchant-joinst-warp clearfix">
+            <van-cell value="修改" @click="openSubjectForm(i)" v-for="(r,i) in total" is-link >
+                <template slot="title">
+                    <span class="custom-text">{{subjectList[i].name}}</span>
+                </template>
+            </van-cell>
+            <div class="jft-content">
+                <div class="jft-content-addbtn">
+                    <button @click="addSubject">
+                        <i class="fa fa-plus" aria-hidden="true"></i>添加
+                    </button>
+                </div>
+            </div>
+
+            <addsubject :formShow="formShow"
+                        :subjectList="subjectList"
+                        :subjectIndex="currentSubjectIndex"
+                        @hideAddSubjectForm="formShow=false"
+                        @finishSubject="finishSubject"
+            />
+        </div>
+
+    </div>
+
+
+</template>
+
+<script>
+    import Topback from "../../components/topback";
+    import Addsubject from "./components/addsubject";
+    import {wxJssdkInit} from "../../assets/utils/wechat";
+    import {listSubjectByToken, saveSubjectBatch} from "../../assets/services/shopping";
+    export default {
+        name: "subject",
+        data(){
+            return{
+                activeNames:[], // 折叠面板
+                subjectList:[], //课程列表
+                formShow:false,
+                currentSubjectIndex:-1,
+                subjectTemplate:{
+                    id:null,
+                    name:null,
+                    startDate:null,
+                    endDate:null,
+                    startTime:null,
+                    endTime:null,
+                    rateType:null,
+                    rateTypeName:null,
+                    rateNum:null,
+                    rateNumName:null,
+                    during:null,
+                    price:null,
+                    total:null,
+                    maxStudents:null,
+                    realStudents:0,
+                    suitableAge:null,
+                    description:null,
+                    advImg:null
+                }
+            }
+        },
+        methods:{
+            async listSubject() {
+                let res = await listSubjectByToken()
+                this.subjectList = res.data
+                this.subjectList.map(input =>{
+                    input.price = input.price / 100
+                })
+            },
+            // 加一行
+            addSubject(){
+                let subject = Object.assign({},this.subjectTemplate)
+                subject.name='未设置标题'
+                this.subjectList.push(subject)
+            },
+            // 打开
+            openSubjectForm(index){
+                this.formShow = true
+                this.currentSubjectIndex = index
+            },
+            // 一行完成事件
+            finishSubject(data){
+                this.formShow = false
+                this.listSubject()
+            },
+            // 提交
+            async submit(){
+                if(this.total===0){
+                    this.$toast("请至少添加一门课程");return;
+                }
+                for (let i = 0; i < this.total; i++) {
+                    let sitem = this.subjectList[i]
+                    sitem.merchantId = this.$route.params.mid
+                    if(!sitem.name || sitem.name==='未设置标题'){
+                        this.$toast("课程标题输入有误");return
+                    }
+                    if(!sitem.startDate){
+                        this.$toast("课程开始日期输入有误");return
+                    }
+                    if(!sitem.endDate){
+                        this.$toast("课程结束日期输入有误");return
+                    }
+                    if(!sitem.startTime){
+                        this.$toast("上课时间输入有误");return
+                    }
+                    if(!sitem.startTime){
+                        this.$toast("下课时间输入有误");return
+                    }
+                    if(!sitem.rateType){
+                        this.$toast("上课频率输入有误");return
+                    }
+                    if(!sitem.during){
+                        this.$toast("每节课时长输入有误");return
+                    }
+                    if(!sitem.price){
+                        this.$toast("价格输入有误");return
+                    }
+                    if(!sitem.total){
+                        this.$toast("总节数输入有误");return
+                    }
+                    if(!sitem.maxStudents){
+                        this.$toast("每班最大学生数输入有误");return
+                    }
+                    if(!sitem.suitableAge){
+                        this.$toast("适合年龄段输入有误");return
+                    }
+                    if(!sitem.advImg){
+                        this.$toast("请为每门课程上传一张宣传图片");return
+                    }
+                }
+                console.log(this.subjectList)
+                let res = await saveSubjectBatch(this.subjectList)
+                if (res.data === this.total) {
+                    this.$router.push({name:'shop-joinfinish'})
+                }else{
+                    this.$toast.fail({
+                        message:'保存课程失败',
+                        duration:2000
+                    })
+                }
+            }
+        },
+        computed:{
+            total(){
+                return this.subjectList.length
+            }
+        },
+        mounted(){
+            this.listSubject()
+            // 微信jssdk
+            wxJssdkInit(window.location.href,
+                [
+                    'chooseImage', // 从手机中或拍照选择图片
+                    'previewImage', // 预览图片接口
+                    'uploadImage',
+                    'downloadImage',
+                    'getLocalImgData',
+                    'getLocation', //获取地理位置
+                    'openLocation',
+                    'hideOptionMenu'
+                ],
+                wx => {
+                    wx.hideOptionMenu();
+                }
+            )
+        },
+        components: {Addsubject, Topback}
+    }
+</script>
+
+<style scoped>
+    .merchant-joinst-warp{
+        margin-top:8px;
+        background-color: white;
+        margin-bottom:15px;
+    }
+    .jft-content{
+        background-color: white;
+    }
+    .jft-content-addbtn{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 15px;
+    }
+    .jft-content-addbtn button{
+        border:1px solid #2cbe4e;
+        background-color: white;
+        color:#2cbe4e;
+        margin-right:15px;
+        height: 30px;
+        padding:0 15px;
+    }
+    .remove_icon{
+        margin-right:10px;
+        color:#fc6b79;
+    }
+</style>
+<style>
+    .van-dialog__confirm, .van-dialog__confirm:active{
+        color:#2cbe4e;
+    }
+    .van-picker__cancel, .van-picker__confirm{
+        color:#2cbe4e;
+    }
+    .van-cell{
+        font-size:12px;
+    }
+</style>

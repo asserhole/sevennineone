@@ -1,6 +1,8 @@
 import axios from 'axios';
 import config from '~~/config/config.js';
 import { Toast } from 'mint-ui';
+import store from '~/store/index'
+import {getCookie} from "./util";
 
 axios.defaults.baseURL = config.BASE_URL;
 axios.defaults.timeout = config.TIMEOUT;
@@ -9,6 +11,10 @@ axios.defaults.withCredentials = true
 
 // 请求拦截器
 axios.interceptors.request.use( request => {
+    if(!axios.defaults.headers.token){
+        axios.defaults.headers.token = store.openid?store.openid:getCookie('token')
+        request.headers.token = axios.defaults.headers.token
+    }
     if (!config.IS_RELEASE) {
         console.log(
             `${new Date().toLocaleString()}【 M=${request.url} 】P=`,

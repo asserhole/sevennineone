@@ -7,8 +7,9 @@
         <div class="merchant_join-warp clearfix">
             <div class="jf-progress">
                 <van-steps :active="active">
-                    <van-step>填写商家信息</van-step>
+                    <van-step>商家信息</van-step>
                     <van-step>课程设置</van-step>
+                    <van-step>地理位置</van-step>
                     <van-step>完成</van-step>
                 </van-steps>
             </div>
@@ -47,13 +48,6 @@
                             rows="1"
                             autosize
                     />
-                    <van-field
-                            v-model="merchant.address"
-                            label="详细地址"
-                            placeholder="请输入详细地址"
-                            rows="1"
-                            autosize
-                    />
                 </van-cell-group>
                 <div class="js-form-area">
                     <span>上传logo</span>
@@ -67,6 +61,20 @@
                     <div class="js-form-logo">
                         <van-button @click="chooseBusinessLiImg" type="primary">点击上传</van-button>
                         <img :src="busiLiUrl" />
+                    </div>
+                </div>
+                <div class="js-form-area">
+                    <span>首页横幅</span>
+                    <div class="js-form-logo">
+                        <van-button @click="chooseBannerImg" type="primary">点击上传</van-button>
+                        <img :src="bannerUrl" />
+                    </div>
+                </div>
+                <div class="js-form-area">
+                    <span>宣传图片</span>
+                    <div class="js-form-logo">
+                        <van-button @click="chooseMerchantImg" type="primary">点击上传，请上传最少5张</van-button>
+                        <img v-for="r in merchantImgList" :src="r" />
                     </div>
                 </div>
             </div>
@@ -96,8 +104,10 @@
     import Topback from "../../components/topback";
     import areaList from "~/assets/utils/areaList"
     import {getHomeData} from "../../assets/services/common";
-    import {wxJssdkInit} from "../../assets/utils/wechat";
+    import {wechat_authorize_userinfo, wxJssdkInit} from "../../assets/utils/wechat";
     import {getMerchantJoinInfo, saveMerchant} from "../../assets/services/shopping";
+    import {getCookie, setCookie} from "../../assets/utils/util";
+    import {accessToken, token} from "../../assets/services/user";
 
     export default {
         name: "join",
@@ -110,6 +120,8 @@
                 categoryShow:false,
                 logoUrl:'',
                 busiLiUrl:'',
+                bannerUrl:'',
+                merchantImgList:[], // 微信选择本地图片列表
                 merchant:{
                     name:null,
                     province:null,
@@ -121,7 +133,8 @@
                     logo:null,
                     businessLicense:null,
                     description:'',
-                    address:''
+                    banner:'',
+                    merchantImgList:[]  // 上传的服务器图片id
                 }
             }
         },
@@ -192,6 +205,52 @@
                     }
                 });
             },
+            // 上传首页横幅
+            chooseBannerImg(){
+                var that = this
+                wx.chooseImage({
+                    count: 1, // 默认9
+                    sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
+                    sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
+                    success: function (res) {
+                        let localIds = res.localIds; // 返回选定照片的本地ID列表，localId可以作为img标签的src属性显示图片
+                        that.bannerUrl = localIds[0] // 预览
+
+                        // 上传图片
+                        wx.uploadImage({
+                            localId: that.bannerUrl, // 需要上传的图片的本地ID，由chooseImage接口获得
+                            isShowProgressTips: 1, // 默认为1，显示进度提示
+                            success: function (res) {
+                                that.merchant.banner = res.serverId; // 返回图片的服务器端ID
+                            }
+                        });
+                    }
+                });
+            },
+            // 上传宣传图片
+            chooseMerchantImg(){
+                var that = this
+                wx.chooseImage({
+                    count: 9, // 默认9
+                    sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
+                    sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
+                    success: function (res) {
+                        that.merchantImgList = res.localIds; // 返回选定照片的本地ID列表，localId可以作为img标签的src属性显示图片
+
+                        // 上传图片
+                        for(let i=0;i<that.merchantImgList.length;i++){
+                            wx.uploadImage({
+                                localId: that.merchantImgList[i], // 需要上传的图片的本地ID，由chooseImage接口获得
+                                isShowProgressTips: 1, // 默认为1，显示进度提示
+                                success: function (res) {
+                                    that.merchant.merchantImgList.push(res.serverId); // 返回图片的服务器端ID
+                                }
+                            });
+                        }
+
+                    }
+                });
+            },
             // 下一步 提交
             async submit(){
                 console.log(this.merchant)
@@ -213,6 +272,9 @@
                 if(!this.merchant.businessLicense){
                     this.$toast("请上传营业执照");return;
                 }
+                // if(this.merchant.merchantImgList.length < 5){
+                //     this.$toast("请上传至少5张机构图片");return;
+                // }
                 let res = await saveMerchant(this.merchant)
                 if(res.data > 0){
                     this.$router.push({name:"shop-joinsteptwo",params:{mid:res.data}})
@@ -223,22 +285,6 @@
                     )
                 }
             },
-            // 地图定位
-            location(){
-                wx.getLocation({
-                    type:'gcj02',
-                    success:function (res) {
-                        wx.chooseLocation({
-                            latitude : res.latitude, // 纬度，浮点数，范围为90 ~ -90
-                            longitude : res.longitude, // 经度，浮点数，范围为180 ~ -180。
-                            name : '我的位置', // 位置名
-                            address : '329创业者社区', // 地址详情说明
-                            scale : 28, // 地图缩放级别,整形值,范围从1~28。默认为最大
-                            infoUrl : 'http://www.djtp.com' // 在查看位置界面底部显示的超链接,可点击跳转（测试好像不可用）
-                        });
-                    }
-                })
-            },
             // 查找自己填写过的信息
             async getMerchantJoinInfo(){
                 let res = await getMerchantJoinInfo();
@@ -246,13 +292,44 @@
                     if(res.data.auditStatus === 1){ //如果在审核中，跳到申请的页面
                         this.$router.push({name:'shop-joinfinish'})
                     }
+                    if(res.data.auditStatus === 2){
+                        this.$router.push({name:'business'})
+                    }
                     this.merchant = res.data
                     this.logoUrl = res.data.logo
                     this.busiLiUrl = res.data.businessLicense
+                    this.bannerUrl = res.data.banner
+                    this.merchantImgList = res.data.imgList
                 }
-            }
+            },
+            // 页面初始化，请求用户授权或拉取数据
+            async pageInit(){
+                let localToken = getCookie("token")
+                let code = this.$route.query.code
+                let state = this.$route.query.state
+                if(!localToken){
+                    if (!code) {
+                        wechat_authorize_userinfo(window.location.href)
+                    }
+                    if (code) {
+                        let res = await accessToken({
+                            code: code,
+                            state: state
+                        });
+                        this.userinfo = JSON.parse(res.data.user)
+                        if(res.data.openid){
+                            setCookie('token', res.data.openid, 7)
+                            this.$store.commit('setOpenid',res.data.openid)
+                        }
+                    }
+                }else{
+                    let res = await token()
+                    this.userinfo = JSON.parse(res.data)
+                }
+            },
         },
         mounted(){
+            this.pageInit()
             this.getCagetoryList()
             this.getMerchantJoinInfo()
 
@@ -272,8 +349,8 @@
                     wx.hideOptionMenu();
                 }
             )
-
-
+        },
+        watch:{
         },
         components: {Topback}
     }

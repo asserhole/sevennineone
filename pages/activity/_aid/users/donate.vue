@@ -16,7 +16,7 @@
                 <div class="uc-reply_item_info">
                     <div class="uc-donate-img" :style="'background-image:url('+item.giftImg+');'"></div>
                     <div class="uc-donate-info">
-                        <p class="gray">{{item.createTime | formatDate}}</p>
+                        <p class="gray">{{item.createTime}}</p>
                         <p>您为<span class="pink">{{item.childName}}</span>送出了<span class="pink">{{item.giftNum}}</span>个<span class="pink">{{item.giftName}}</span> </p>
                         <p>本次支付：<i class="fa fa-jpy" aria-hidden="true"></i>{{item.totalFee / 100}}</p>
                     </div>

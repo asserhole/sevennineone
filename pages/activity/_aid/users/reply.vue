@@ -12,7 +12,7 @@
                 <img :src="item.imageList[0]" />
                 <div class="uc-reply_item_info">
                     <mt-badge size="small" color="#fc6b79">{{item.childName}}</mt-badge>
-                    <p><span class="gray">报名时间&nbsp;:&nbsp;</span>{{item.createTime | formatDate}}</p>
+                    <p><span class="gray">报名时间&nbsp;:&nbsp;</span>{{item.createTime}}</p>
                     <mt-progress :value="Math.round((item.paidFee/item.totalFee)*100)">
                         <div slot="start">￥{{item.paidFee/100}}</div>
                         <div slot="end">￥{{item.totalFee/100}}</div>

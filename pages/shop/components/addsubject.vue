@@ -94,7 +94,7 @@
                         <span>课程宣传图片</span>
                         <div class="js-form-area_img">
                             <van-button @click="chooseLogoImg" type="primary">点击选择</van-button>
-                            <img v-show="subjectItem.advImg" :src="subjectItem.advImg" />
+                            <img v-show="subjectItem.advImg" :src="advImgUrl" />
                         </div>
                     </div>
                 </van-cell-group>

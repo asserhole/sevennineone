@@ -19,8 +19,18 @@
                 <div class="a-title">
                     <p>{{activityPO.name}}</p>
                     <div class="a-desc">
-                        <p>此活动由<span style="color:#fc6b79">hxy</span>发起:</p>
-                        <p style="text-indent:20px;">{{activityPO.poster}}</p>
+                        <p class="a-desc-origin">
+                            <span>此活动由<span style="color:#fc6b79">hxy</span>发起:</span>
+                            <span @click="addActivity" class="add-activity">发起活动</span>
+                        </p>
+                        <p  style="text-indent:20px;">{{activityPO.poster}}</p>
+                    </div>
+                </div>
+                <div class="a-content">
+                    <p class="shoplist-title">活动介绍</p>
+                    <div>
+                        {{activityPO.description}}
+                        <br />
                     </div>
                 </div>
                 <div class="a-time">
@@ -40,6 +50,7 @@
                 <div class="a-content">
                     <p class="shoplist-title">活动商家</p>
                     <ActivityMerchant :merchantList="activityPO.merchantList" :aid="$route.params.aid"/>
+                    <span @click="merchantJoin" class="a-content-join">我是商家，我想出现在这里</span>
                 </div>
             </div>
         </div>
@@ -53,12 +64,18 @@
     import ActivityMerchant from '~/components/activity/activityMerchant'
     import TimeDown from '~/components/activity/timeDown'
     import { getActivityById } from '~/assets/services/activity'
+    import {wechat_authorize_userinfo, wxJssdkInit} from "../../../assets/utils/wechat";
+    import {getCookie, setCookie} from "../../../assets/utils/util";
+    import {accessToken, token} from "../../../assets/services/user";
+    import {getMerchantJoinInfo} from "../../../assets/services/shopping";
+    import {getExistsByAidAndMid} from "../../../assets/services/activity";
 
     export default {
         name: "index",
         data(){
             return {
-
+                userinfo:{},
+                aid:this.$route.params.aid
             }
         },
         async asyncData({params}){
@@ -72,13 +89,105 @@
         methods:{
             timeEndHandler(){ // 倒计时结束事件
 
+            },
+            // 商家加入活动
+            async merchantJoin(){
+                let localToken = getCookie("token")
+                let code = this.$route.query.code
+                let state = this.$route.query.state
+                if(!localToken){
+                    if (!code) {
+                        wechat_authorize_userinfo(window.location.href)
+                    }
+                    if (code) {
+                        let res = await accessToken({
+                            code: code,
+                            state: state
+                        });
+                        this.userinfo = JSON.parse(res.data.user)
+                        if(res.data.openid){
+                            setCookie('token', res.data.openid, 7)
+                            this.$store.commit('setOpenid',res.data.openid)
+                        }
+                    }
+                }else{
+                    let res = await token()
+                    this.userinfo = JSON.parse(res.data)
+                }
+
+                let merchantRes = await getMerchantJoinInfo()
+                if(merchantRes.data){
+                    let exists = await getExistsByAidAndMid({
+                        aid:this.aid
+                    })
+                    if(exists.data){
+                        this.$toast({
+                            message: '您已加入活动',
+                            duration: 1500
+                        })
+                    }else{
+                        if(merchantRes.data.auditStatus === 2){ // 已经是商家了，直接填写数据加入活动
+                            this.$router.push({name:'activity-aid-join',params:{aid:this.aid,status:1}})
+                        }else if(merchantRes.data.auditStatus === 1){ // 正在审核中的商家
+                            this.$dialog.confirm({
+                                title: '请确认',
+                                message: '您提交的商家入驻数据正在审核中，若加入活动需等待审核通过才能生效~'
+                            }).then(() => {
+                                this.$router.push({name:'activity-aid-join',params:{aid:this.aid,status:0}})
+                            })
+                        }else if(merchantRes.data.auditStatus === 0){ // 未入驻的商家
+                            this.$dialog.confirm({
+                                title: '请确认',
+                                message: '您还没有成为商家，现在就去成为商家吧~'
+                            }).then(() => {
+                                this.$router.push({name:'shop-join'})
+                            })
+                        }
+                    }
+                }else{
+                    this.$dialog.confirm({
+                        title: '请确认',
+                        message: '您还没有成为商家，现在就去成为商家吧~'
+                    }).then(() => {
+                        this.$router.push({name:'shop-join'})
+                    })
+                }
+
+            },
+            // 发起活动
+            addActivity(){
+                this.$router.push({name:'activity-add'})
             }
         },
         components:{
             ActivityTabbar,TimeDown,ActivityMerchant
         },
         mounted() {
-
+            var that = this
+            wxJssdkInit(window.location.href,
+                [
+                    'onMenuShareTimeline',
+                    'onMenuShareAppMessage',
+                ],
+                wx => {
+                    wx.onMenuShareTimeline({
+                        title: that.activityPO.name, // 分享标题
+                        link: 'window.location.href', // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+                        imgUrl: 'https://sevennineone.oss-cn-hangzhou.aliyuncs.com/default/c31514038096dc04c14d51d87aed06ee.png', // 分享图标
+                        success: function () {
+                            // 设置成功
+                        }
+                    })
+                    wx.onMenuShareAppMessage({
+                        title: that.activityPO.name, // 分享标题
+                        desc: '99元享抵扣学费、体验活动所有商家课程好礼', // 分享描述
+                        link: window.location.href, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+                        imgUrl: 'https://sevennineone.oss-cn-hangzhou.aliyuncs.com/default/c31514038096dc04c14d51d87aed06ee.png', // 分享图标
+                        success: function () {
+                            // 用户点击了分享后执行的回调函数
+                        }
+                    });
+                })
         }
     }
 </script>
@@ -163,5 +272,26 @@
     .shoplist-title{
         text-align: left;
     }
-
+    .a-content-join{
+        color:#999;
+        text-decoration: underline;
+        margin-top:15px;
+        display: block;
+        text-align: right;
+    }
+    .a-desc-origin{
+        display: flex;
+        justify-content: space-between;
+    }
+    .add-activity{
+        color:#999;
+        border: 1px solid #eeeeee;
+        border-radius: 5px;
+        padding:0 5px;
+    }
+</style>
+<style>
+    .van-dialog__confirm, .van-dialog__confirm:active{
+        color:#fc6b79;
+    }
 </style>

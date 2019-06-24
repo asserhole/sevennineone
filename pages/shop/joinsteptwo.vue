@@ -7,8 +7,9 @@
         <div class="merchant-joinst-warp clearfix">
             <div class="jf-progress">
                 <van-steps :active="active">
-                    <van-step>填写商家信息</van-step>
+                    <van-step>商家信息</van-step>
                     <van-step>课程设置</van-step>
+                    <van-step>地理位置</van-step>
                     <van-step>完成</van-step>
                 </van-steps>
             </div>
@@ -162,7 +163,7 @@
                 console.log(this.subjectList)
                 let res = await saveSubjectBatch(this.subjectList)
                 if (res.data === this.total) {
-                    this.$router.push({name:'shop-joinfinish'})
+                    this.$router.push({name:'shop-joinstepthree'})
                 }else{
                     this.$toast.fail({
                         message:'保存课程失败',

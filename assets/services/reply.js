@@ -116,3 +116,12 @@ export const getMobile = (params) =>{
         data: params,
     })
 }
+
+// 商家报名记录
+export const listMerchantReply = (params) =>{
+    return request({
+        url: `${prefix}/listMerchantReply`,
+        method: 'GET',
+        data: params,
+    })
+}

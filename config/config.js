@@ -21,8 +21,6 @@ export default {
     // APPID:'wxda38bb8a650afb21', //生产
     APPID:'wx582bf42c28be84d2',   // 测试
     APPSECRET:'0a4bf7eded33e4a96a70b39ec009ca23',
-    // REDIRECT_URL:'http://www.djtp.com/user',
-    // REDIRECT_URL:'http://127.0.0.1:3000/user',
 
     TIMEOUT: 12000, // api超时时间
 

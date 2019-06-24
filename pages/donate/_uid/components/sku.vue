@@ -16,7 +16,7 @@
             <span>数量</span>
             <van-stepper v-model="skuNum" />
         </div>
-        <button @click="pay" class="pay_button">去送礼</button>
+        <button @click="pay" class="pay_button">{{'需支付'+skuNum * gift.worth/100+'元'}}</button>
     </van-popup>
 
 

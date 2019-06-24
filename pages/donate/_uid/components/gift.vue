@@ -10,7 +10,7 @@
                     <div @click="clickGift(i,index)" class="gift_item" v-for="(r,i) in item" :key="i">
                         <div :style="{backgroundImage: 'url(' + r.img + ')' }"></div>
                         <p>{{r.name}}</p>
-                        <p>价值：￥{{r.worth/100}}</p>
+                        <p><i class="fa fa-jpy" aria-hidden="true"></i>&nbsp;{{r.worth/100}}</p>
                     </div>
                 </van-swipe-item>
             </van-swipe>

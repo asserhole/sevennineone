@@ -100,3 +100,12 @@ export const getMobileInfo = (params) =>{
     data: params,
   })
 }
+
+// 报名发送验证码
+export const sendReplySms = (params) =>{
+  return request({
+    url: `/snoUser/sendReplySms`,
+    method: 'GET',
+    data: params,
+  })
+}

@@ -2,11 +2,10 @@
     <div id="a-merchant">
         <div class="a-merchant_bg clearfix">
             <div class="a-merchant_banner" :style="'background-image:url('+merchant.banner+');'">
-                <span class="a-merchant_more">
+                <span @click="$router.push({name:'activity-aid-merchant-mid-image',params:{aid:aid,mid:mid}})" class="a-merchant_more">
                     查看图集&nbsp;>
                 </span>
             </div>
-
 
             <div class="a-merchant_content">
                 <p class="a-merchant_content_name">
@@ -21,7 +20,8 @@
             </div>
 
             <div class="a-merchant_content">
-                <p class="a-merchant_content_map" @click="$router.push({name:'activity-aid-merchant-mid-map',params:{aid:aid,mid:mid}})">
+                <!--@click="$router.push({name:'activity-aid-merchant-mid-map',params:{aid:aid,mid:mid}})"-->
+                <p class="a-merchant_content_map" @click="gotoMapPage">
                     <i class="fa fa-location-arrow" aria-hidden="true"></i>&nbsp;{{merchant.address}}
                     <span class="pull-right"><i class="fa fa-angle-right" aria-hidden="true"></i></span>
                 </p>
@@ -55,13 +55,13 @@
 
             <div class="a-merchant_content">
                 <p class="a-merchant_content_hst">历史报名</p>
-                <div v-if="replyHistoryTotal>0" :class="{'a-merchant_hisre_item_tw':i%2!==0}"
+                <div @click="goDonatePage(i)" v-if="replyHistoryTotal>0" :class="{'a-merchant_hisre_item_tw':i%2!==0}"
                      v-for="(r,i) in replyHistoryList" class="a-merchant_hisRe_item">
                     <div class="a-merchant_hisRe_img">
                         <img :src="r.avatar"/>
                     </div>
                     <span class="pink" style="margin-left:5px;">{{r.nickname}}<span style="color:#999">报名了</span></span>
-                    <span style="margin-left:auto;" class="gray">{{r.createTime | formatDate}}</span>
+                    <span style="margin-left:auto;" class="gray">{{r.createTime.substr(0,16)}}</span>
                 </div>
                 <div v-if="replyHistoryTotal===0" class="a-merchant_hisRe_item">
                     <p class="gray">暂无信息</p>
@@ -99,6 +99,7 @@
     import ReplyTabbar from '../component/replyTabbar';
     import { getRate } from "~/assets/utils/util";
     import {listReplyByAidAndMid} from "~/assets/services/reply";
+    import {wxJssdkInit} from "../../../../../assets/utils/wechat";
 
     export default {
         name: "_id",
@@ -174,6 +175,16 @@
                 }else{ //直接转跳到详情
 
                 }
+            },
+            // 点击报名历史
+            goDonatePage(index){
+                this.$router.push({name:'donate-uid',params:{uid:this.replyHistoryList[index].id}})
+            },
+            //查看地图
+            gotoMapPage(){
+                let eword = this.merchant.address
+                // let eword = '湖南省岳阳市岳阳楼区花板湖路48号岳阳市第九中学'
+                window.location.href = 'https://apis.map.qq.com/tools/routeplan/eword='+eword+'?key=XOOBZ-3G2WU-ME2VZ-4AG7A-4NDTT-Z4F7O&referer=791'
             }
 
         },
@@ -195,11 +206,37 @@
             }
         },
         mounted() {
-            // console.log(this.merchant)
-            // console.log(this.replyHistoryList)
-            // console.log(this.replyHistoryTotal)
+            console.log(this.merchant)
+            console.log(this.replyHistoryList)
+            console.log(this.replyHistoryTotal)
 
             this.page_init()
+
+            var that = this
+            wxJssdkInit(window.location.href,
+                [
+                    'onMenuShareTimeline',
+                    'onMenuShareAppMessage',
+                ],
+                wx => {
+                    wx.onMenuShareTimeline({
+                        title: that.merchant.name, // 分享标题
+                        link: 'window.location.href', // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+                        imgUrl: that.merchant.logo, // 分享图标
+                        success: function () {
+                            // 设置成功
+                        }
+                    })
+                    wx.onMenuShareAppMessage({
+                        title: that.merchant.name, // 分享标题
+                        desc: '一览无余，全透明课程任你选', // 分享描述
+                        link: window.location.href, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+                        imgUrl: that.merchant.logo, // 分享图标
+                        success: function () {
+                            // 用户点击了分享后执行的回调函数
+                        }
+                    });
+                })
         },
         components:{
             ReplyTabbar

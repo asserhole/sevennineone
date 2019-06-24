@@ -1,4 +1,5 @@
 import Vue from 'vue'
+import { isNumber } from 'lodash';
 // 时间格式化
 var padDate=function(va){
     va=va<10?'0'+va:va;
@@ -35,7 +36,7 @@ export function schoolInfoFilter(val){
 }
 
 export function timeago(val){   //dateTimeStamp是一个时间毫秒，注意时间戳是秒的形式，在这个毫秒的基础上除以1000，就是十位数的时间戳。13位数的都是时间毫秒。
-    var value = new Date(val);
+    var value = new Date(val.replace(/-/g, '/'));
     var minute = 1000 * 60;      //把分，时，天，周，半个月，一个月用毫秒表示
     var hour = minute * 60;
     var day = hour * 24;
@@ -80,9 +81,13 @@ export function timeago(val){   //dateTimeStamp是一个时间毫秒，注意时
     return result;
 }
 
+export const yuan = value =>
+    isNumber(value) ? `¥${(value / 100).toFixed(2)}` : value;
+
+
 
 let filters = {
-    formatDate,schoolInfoFilter,timeago
+    formatDate,schoolInfoFilter,timeago,yuan
 }
 
 Object.keys(filters).forEach(key => {

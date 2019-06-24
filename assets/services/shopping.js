@@ -86,3 +86,39 @@ export const updateSubject = (params)=>{
     data: params,
   })
 }
+
+// 保存详细地址
+export const updateAddressInfo = (params)=>{
+  return request({
+    url: `${prefix}/updateAddressInfo`,
+    method: 'GET',
+    data: params,
+  })
+}
+
+// 获取商家的图片
+export const getMerchantImageList = (params) =>{
+  return request({
+    url: `${prefix}/getImageList`,
+    method: 'GET',
+    data: params,
+  })
+}
+
+// 后台审核列表
+export const listMerchantForAudit = (params)=>{
+  return request({
+    url: `${prefix}/listMerchantForAudit`,
+    method: 'GET',
+    data: params,
+  })
+}
+
+// 审核接口
+export const auditMerchant = (params)=>{
+  return request({
+    url: `${prefix}/auditMerchant`,
+    method: 'GET',
+    data: params,
+  })
+}

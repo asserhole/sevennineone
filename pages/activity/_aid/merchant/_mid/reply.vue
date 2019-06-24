@@ -59,6 +59,20 @@
                     <img :src="childImgPreUrl" />
                 </div>
             </div>
+            <van-field
+                    v-model="userinfo.mobile"
+                    clearable
+                    label="手机号码"
+                    placeholder="请输入手机号码"
+            >
+                <van-button @click="sendReplySms" slot="button" size="small" type="primary">发送验证码</van-button>
+            </van-field>
+            <van-field
+                    v-model="code"
+                    clearable
+                    label="验证码"
+                    placeholder="请输入手机验证码"
+            />
             <button :class="{'disable_btn':canSubmit}" :disabled="canSubmit" @click="saveReplyLocal" class="submit_btn">我要报名</button>
         </div>
 
@@ -76,6 +90,7 @@
     import {Indicator} from "mint-ui";
     import MessageTop from "~/components/activity/messageTop"
     import {wxJssdkInit} from "../../../../../assets/utils/wechat";
+    import {sendReplySms} from "../../../../../assets/services/user";
 
     export default {
         name: "reply",
@@ -130,7 +145,10 @@
                 canSubmit:false, //按钮能否点击
                 popupVisible:false, //保存成功提示
                 successMsg:'报名成功',
-                lifePhoto:null // 生活照地址
+                lifePhoto:null, // 生活照地址
+                userinfo:{},
+                code:null, // 短信验证码
+                smsId:null, //短信验证码id
             }
         },
         methods:{
@@ -142,6 +160,8 @@
                     let res = await token()
                     if (res.data === null) {
                         await this.wechat_userinfo()
+                    }else{
+                        this.userinfo = JSON.parse(res.data)
                     }
                 }
             },
@@ -158,6 +178,7 @@
                     if(resUser.data.openid){
                         setCookie('token', resUser.data.openid, 7)
                         this.$store.commit('setOpenid',resUser.data.openid)
+                        this.userinfo = resUser.data
                     }
                     this.step = -3
                 }
@@ -178,6 +199,14 @@
                 if(this.schoolInfo===''){
                     Toast({message:"请选择入学情况--",position:'bottom',duration:3000});return;
                 }
+                if (!this.userinfo.mobile) {
+                    Toast({message: "请填写手机号码", position: 'bottom', duration: 3000});
+                    return;
+                }
+                if (!this.code) {
+                    Toast({message: "请填写验证码", position: 'bottom', duration: 3000});
+                    return;
+                }
                 let obj = {
                     childName:this.childName,
                     childAge:this.childAge,
@@ -186,7 +215,10 @@
                     subjectId:this.replySubId,
                     activityId:this.$route.params.aid,
                     merchantId:this.$route.params.mid,
-                    lifePhoto:this.lifePhoto
+                    lifePhoto:this.lifePhoto,
+                    mobile:this.userinfo.mobile,
+                    code:this.code,
+                    smsId:this.smsId
                 }
                 Indicator.open({
                     text: '保存中...',
@@ -196,7 +228,7 @@
                 let res = await saveReply(obj)
                 Indicator.close()
                 if (res.code !== 0) {
-                    Toast('保存失败，请稍后再试')
+                    Toast('保存失败，请稍后再试:'+res.message)
                 }else{
                     let replyId = res.data
                     that.canSubmit = true
@@ -232,6 +264,36 @@
                     }
                 });
             },
+            // 发送验证码
+            async sendReplySms(){
+                //手机号正则
+                let phoneReg = /(^1[3|4|5|7|8]\d{9}$)|(^09\d{8}$)/;
+                //电话
+                if (!phoneReg.test(this.userinfo.mobile)) {
+                    this.$toast({
+                        message: '请输入正确的手机号',
+                        duration: 1500
+                    })
+                    return
+                }else{
+                    let res = await sendReplySms({
+                        mobile:this.userinfo.mobile
+                    })
+                    if(res.data > 0){
+                        this.$notify({
+                            message: '发送成功',
+                            background: '#fc6b79'
+                        })
+                        this.smsId = res.data
+                    }else{
+                        this.$toast.fail({
+                            message: '发送短信失败',
+                            duration: 2000
+                        })
+                    }
+                }
+
+            }
         },
         async asyncData({params}){
             var res = await listSubject({

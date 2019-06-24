@@ -8,24 +8,19 @@
                     :to="{ path: 'shop', query:{id: item.id }}"
                     :key="item.id"
                     class="shop_li">
-                <section>
-                    <img
-                            :src="item.logo"
-                            class="shop_img">
+                <section style="width:64px;height:64px;" :style="'background-image:url('+item.logo+');'">
                 </section>
                 <hgroup class="shop_right">
                     <header class="shop_detail_header">
                         <h4 class="shop_title ellipsis">{{ item.name }}</h4>
                     </header>
                     <h5 class="rating_order_num">
-                        <section class="rating_order_num_left">
-
-                            <p>热度：{{item.hot_num}}</p>
-                        </section>
+                        热度：<span style="color:#fc6b79">{{item.hot_num}}</span>
                     </h5>
                     <h5 class="fee_distance">
                         <p class="fee">
-                            ¥{{ item.address }}
+                            <i class="fa fa-map-marker" aria-hidden="true"></i>
+                            {{ getAddress(item.address) }}
                         </p>
                         <p class="distance_time">
                              <span>2.7km <span
@@ -68,7 +63,8 @@
             "categoryId",
             "province",
             "city",
-            "area"
+            "area",
+            'latng'
         ],
         data() {
             return {
@@ -80,16 +76,30 @@
             };
         },
         watch: {
-
+            city(newV,oldV){
+                if(newV){
+                    this.initData({
+                        current:1,
+                        rowCount:20,
+                        categoryId:this.categoryId,
+                        province:this.province,
+                        city:this.city,
+                        area:this.area,
+                        latng:this.latng
+                    });
+                }
+            }
         },
         mounted() {
+            //todo  定位后不需要请求
             this.initData({
                 current:1,
                 rowCount:20,
                 categoryId:this.categoryId,
                 province:this.province,
                 city:this.city,
-                area:this.area
+                area:this.area,
+                latng:this.latng
             });
         },
         methods: {
@@ -99,8 +109,12 @@
                 // res.data.map(item => {
                 //   item.image_path = config.IMG_URL + item.image_path;
                 // });
-                this.shopListArr = [...res.data];
+                this.shopListArr = [...res.data.list];
             },
+            // 地址处理，去掉市前面的字符
+            getAddress(address){
+                return address.substring(address.indexOf('县')+1).substring(address.indexOf('区')+1)
+            }
         },
     };
 
@@ -176,9 +190,10 @@
         }
 
         .rating_order_num {
-            @include fj(space-between);
+            display: flex;
             height: 0.6rem;
             margin-top: 0.52rem;
+            color:#999;
 
             .rating_order_num_left {
                 @include fj(flex-start);

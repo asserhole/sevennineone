@@ -3,23 +3,24 @@
         <van-pull-refresh v-model="isLoading" @refresh="onRefresh">
             <div class="reply_detail_wrap">
                 <div class="reply_detail_title clearfix">
-            <span class="pull-left reply_detail_title_logo">
-            </span>
-                    <span class="pull-left reply_detail_title_name">趣教育</span>
+                    <span class="pull-left reply_detail_title_logo">
+                    </span>
+                    <span @click="$router.push({name:'index'})" class="pull-left reply_detail_title_name">趣教育</span>
                     <span class="pull-right reply_detail_title_btn">
-                <button @click="goReplyPage">为萌娃报名</button>
-            </span>
+                        <button @click="goReplyPage">为萌娃报名</button>
+                    </span>
                 </div>
+
                 <div class="reply_detail_top clearfix">
                     <div class="reply_detail_user">
                         <div :style="{backgroundImage: 'url(' + replyDetail.userinfo.avatar + ')' }">
                         </div>
                         <span class="pink">
-                {{replyDetail.userinfo.nickname}}
-                 </span>
+                             {{replyDetail.userinfo.nickname}}
+                         </span>
                         <span class="gray">
-                    的报名
-                </span>
+                            的报名
+                        </span>
                     </div>
                     <div class="clearfix reply_detail_childPhoto">
                         <img @click="imgView=true" v-for="(r,i) in replyDetail.imageList" :src="r.url"/>
@@ -34,6 +35,15 @@
                         </div>
                     </div>
                 </div>
+
+
+                <div class="reply_detail_progress_warp">
+                    <p class="reply_detail_title_p">Ta的报名进度</p>
+                    <div id="echart_main" style="width: 600px;height:400px;">
+
+                    </div>
+                </div>
+
                 <div class="reply_detail_progress_warp">
                     <p class="reply_detail_title_p">Ta的报名进度</p>
                     <div class="reply_detail_progress clearfix">
@@ -79,19 +89,19 @@
                                 <span>获得联盟卡</span>
                                 <i class="fa fa-question-circle" @click="recommend(1)" aria-hidden="true"></i>
                             </p>
-                            <p :class="{'finish_step':currStep>=3}">
-                                <i class="fa" :class="{'fa-circle':currStep>=3,'fa-circle-o':currStep<3}"
-                                   aria-hidden="true">&nbsp;</i>
-                                <span>可支付剩余学费</span>
-                                <i class="fa fa-question-circle" @click="recommend(2)" aria-hidden="true"></i>
-                            </p>
+                            <!--<p :class="{'finish_step':currStep>=3}">-->
+                            <!--<i class="fa" :class="{'fa-circle':currStep>=3,'fa-circle-o':currStep<3}"-->
+                            <!--aria-hidden="true">&nbsp;</i>-->
+                            <!--<span>可支付剩余学费</span>-->
+                            <!--<i class="fa fa-question-circle" @click="recommend(2)" aria-hidden="true"></i>-->
+                            <!--</p>-->
                         </div>
                     </div>
-
                 </div>
 
+
                 <div class="reply_detail_progress_warp">
-                    <p class="reply_detail_title_p">助学排行榜</p>
+                    <p class="reply_detail_title_p">助学记录</p>
                     <div class="reply_detail_order clearfix">
                         <div v-if="total>0" :class="{'back_odd':index%2!==0}" v-for="(item,index) in giftRecordList"
                              class="reply_detail_order_item">
@@ -141,6 +151,7 @@
     import {getJssdk} from "../../../assets/services/wechat";
     import config from "~/config/config.js"
     import {isWeixin, wxJssdkInit} from "../../../assets/utils/wechat";
+    import {getCookie} from "../../../assets/utils/util";
 
     export default {
         name: "index",
@@ -195,7 +206,8 @@
             giftSend(gift) { //点击的礼物
                 this.currGift = gift
             },
-            async payConfirmHandler(data) { // 支付事件处理
+            // 支付事件处理
+            async payConfirmHandler(data) {
                 var that = this;
                 let obj = {
                     replyId: that.$route.params.uid,
@@ -220,7 +232,7 @@
                                 that.total = donationRecordRes.data.total
                             }
                         },
-                        fail:function () {
+                        fail: function () {
                             that.$store.commit('setSkuShowStatus', false)
                             that.$store.commit('setGiftBarShowStatus', false)
                             that.$toast.fail({
@@ -280,16 +292,46 @@
                     }
                 )
             },
+            // 图表初始化
+            initEchart(){
+                // 基于准备好的dom，初始化echarts实例
+                var myChart = this.$echarts.init(document.getElementById('echart_main'))
+
+                // 指定图表的配置项和数据
+                var option = {
+                    title: {
+                        text: 'ECharts 入门示例'
+                    },
+                    tooltip: {},
+                    legend: {
+                        data:['销量']
+                    },
+                    xAxis: {
+                        data: ["衬衫","羊毛衫","雪纺衫","裤子","高跟鞋","袜子"]
+                    },
+                    yAxis: {},
+                    series: [{
+                        name: '销量',
+                        type: 'bar',
+                        data: [5, 20, 36, 10, 10, 20]
+                    }]
+                };
+
+                // 使用刚指定的配置项和数据显示图表。
+                myChart.setOption(option);
+            }
         },
         mounted() {
             console.log(this.replyDetail)
             console.log(this.giftRecordList)
+            this.initEchart()
             this.getGiftList()
             var that = this
 
             wxJssdkInit(window.location.href,
                 [
                     'onMenuShareTimeline', // 分享到朋友圈
+                    'onMenuShareAppMessage',
                     'chooseWXPay' //微信支付
                 ],
                 wx => {
@@ -301,7 +343,16 @@
                             // 用户点击了分享后执行的回调函数
                         }
                     })
-            })
+                    wx.onMenuShareAppMessage({
+                        title: that.replyDetail.childName + '的入学进度，来助他一臂之力吧！', // 分享标题
+                        desc: '我想上' + that.replyDetail.merchantName + '的' + that.replyDetail.categoryName + '课程', // 分享描述
+                        link: window.location.href.substring(0, window.location.href.indexOf("?")), // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+                        imgUrl: that.replyDetail.imageList[0].url, // 分享图标
+                        success: function () {
+                            // 用户点击了分享后执行的回调函数
+                        }
+                    });
+                })
 
             // 页面监听事件
             document.addEventListener('click', function (e) {

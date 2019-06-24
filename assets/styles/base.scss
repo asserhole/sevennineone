@@ -28,8 +28,8 @@ a:active {
   body,
   .mint-tabbar,
   .mint-header {
-    max-width: 500px;
-    margin: 0 auto;
+    width: 550px;
+    margin: 0 auto!important;
     position: relative;
   }
 }
@@ -45,7 +45,6 @@ a:active {
 
 body,
 html {
-  @include wh(100%, 100%);
   background-color: $fill-base;
 }
 

@@ -36,6 +36,8 @@
             <!--</ul>-->
         </div>
 
+        <van-cell style="margin-top:8px;" @click="merchantPage" title="商家中心" is-link />
+
         <ActivityTabbar :page="3" :aid="$route.params.aid"/>
     </div>
 
@@ -84,6 +86,16 @@
             // 页面转跳
             goPage(name){
                 this.$router.push({name:"activity-aid-users-"+name})
+            },
+            // 商家入驻
+            merchantPage(){
+                // 商家入驻
+                if(this.userinfo.merchant === 0){
+                    this.$router.push({name:'shop-join'})
+                }
+                if(this.userinfo.merchant === 1){
+                    this.$router.push({name:'business'})
+                }
             }
         },
         mounted() {
@@ -130,5 +142,10 @@
     .uc-center-ul li svg{
         height:64px;
         width:64px;
+    }
+</style>
+<style>
+    .van-cell{
+        font-size: 12px;
     }
 </style>

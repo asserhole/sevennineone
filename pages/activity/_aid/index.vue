@@ -1,17 +1,6 @@
 <template>
     <div id="activityIndex">
-        <div class="a-head">
-            <mt-swipe :auto="4000">
-                <mt-swipe-item>
-                    <img src="https://sevennineone.oss-cn-hangzhou.aliyuncs.com/default/4f80a793ca9719f2446fa2d34dbe1a9a.jpg" />
-                </mt-swipe-item>
-                <mt-swipe-item>
-                    <img src="https://sevennineone.oss-cn-hangzhou.aliyuncs.com/default/df8169bccda1cb448bc65b782e52627e.png" />
-                </mt-swipe-item>
-                <mt-swipe-item>
-                    <img src="https://sevennineone.oss-cn-hangzhou.aliyuncs.com/default/da08764a8a4175aa3ff36d49f7f65dc2.png" />
-                </mt-swipe-item>
-            </mt-swipe>
+        <div class="a-head" :style="`background-image: url('${activityPO.logo}');`">
 
             <!-- 发起活动 -->
             <div class="launch" @click="addActivity"></div>

@@ -5,7 +5,7 @@ export default {
 
     IS_RELEASE: false, // true线上，false测试
 
-    BASE_URL: 'http://127.0.0.1:3000/api', // 测试
+    BASE_URL: 'http://localhost:3000/api', // 测试
 
     // BASE_URL: 'http://www.djtp.com/api', // 生产
 

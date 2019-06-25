@@ -1,5 +1,5 @@
 <template>
-    <span>{{time}}</span>
+    <span v-html="time"></span>
 </template>
 
 <script>
@@ -39,7 +39,7 @@
                     this.$emit('time-end')
                     this.time='倒计时已结束'
                 }
-                this.time = `${d}天${h}小时${m}分${s}秒`
+                this.time = `<b>${d}</b>天<b>${h}</b>时<b>${m}</b>分<b>${s}</b>秒`;
             },
             formate (time) {
                 if(time>=10){

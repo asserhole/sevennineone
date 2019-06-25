@@ -59,7 +59,6 @@ export default {
     { src: '~plugins/filter'},
     { src: '~plugins/vue-concise-slider', ssr: false },
     { src: '~plugins/vant'},
-    { src: '~plugins/echarts'},
     { src: '~plugins/route', ssr: false},
     { src: '~plugins/wechat',ssr:false},
   ],

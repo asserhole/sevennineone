@@ -190,6 +190,8 @@
         height:4rem;
         overflow: hidden;
         position: relative;
+        background-size: cover;
+        background-repeat: no-repeat;
     }
     .a-head img{
         width:100%;

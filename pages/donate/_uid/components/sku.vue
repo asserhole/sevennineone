@@ -14,9 +14,11 @@
         </div>
         <div class="sku_num">
             <span>数量</span>
-            <van-stepper v-model="skuNum" />
+            <van-stepper :integer="true" :max="maxSkuNum" :disabled="finalMoney" v-model="skuNum" />
         </div>
-        <button @click="pay" class="pay_button">{{'需支付'+skuNum * gift.worth/100+'元'}}</button>
+        <button @click="pay" class="pay_button" :disabled="finalMoney">
+            {{finalMoney?'当前礼物面值大于所需金额':'需支付'+skuNum * gift.worth/100+'元'}}
+        </button>
     </van-popup>
 
 
@@ -28,6 +30,9 @@
         props:{
             gift:{
                 default:null
+            },
+            replyDetail:{
+                default:{}
             }
         },
         data(){
@@ -45,7 +50,14 @@
                     giftNum:this.skuNum,
                     totalFee:this.gift.worth * this.skuNum
                 })
-
+            }
+        },
+        computed:{
+            finalMoney(){
+                return this.gift.worth * this.skuNum + this.replyDetail.paidFee > this.replyDetail.totalFee
+            },
+            maxSkuNum(){
+                return (this.replyDetail.totalFee-this.replyDetail.paidFee)/this.gift.worth
             }
         }
     }

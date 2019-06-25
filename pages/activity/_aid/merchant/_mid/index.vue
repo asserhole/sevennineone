@@ -467,7 +467,7 @@
         font-size: 14px;
         font-weight: bold;
         margin-right:5px;
-        width: 7.5rem;
+        width: 3.5rem;
     }
     .a-merchant_hisre_item_tw{
         background-color: #f6f8fa;

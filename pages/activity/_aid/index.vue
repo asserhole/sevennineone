@@ -13,46 +13,45 @@
                 </mt-swipe-item>
             </mt-swipe>
 
+            <!-- 发起活动 -->
+            <div class="launch" @click="addActivity"></div>
+
+            <!-- 商家报名 -->
+            <div class="shop_join" @click="merchantJoin"></div>
         </div>
-        <div class="a-content-bg clearfix">
-            <div class="a-content-warp clearfix">
-                <div class="a-title">
-                    <p>{{activityPO.name}}</p>
-                    <div class="a-desc">
-                        <p class="a-desc-origin">
-                            <span>此活动由<span style="color:#fc6b79">hxy</span>发起:</span>
-                            <span @click="addActivity" class="add-activity">发起活动</span>
-                        </p>
-                        <p  style="text-indent:20px;">{{activityPO.poster}}</p>
-                    </div>
-                </div>
-                <div class="a-content">
-                    <p class="shoplist-title">活动介绍</p>
-                    <div>
-                        {{activityPO.description}}
-                        <br />
-                    </div>
-                </div>
-                <div class="a-time">
-                    <div class="clearfix">
-                        <svg t="1558171781655" class="icon" style="" viewBox="0 0 1024 1024" version="1.1"
-                             xmlns="http://www.w3.org/2000/svg" p-id="5479" xmlns:xlink="http://www.w3.org/1999/xlink"
-                             width="64" height="64">
-                            <defs>
-                                <style type="text/css"></style>
-                            </defs>
-                            <path d="M449.59694 552.460488c-2.589471 0-5.210911-0.319688-7.800382-0.959063C313.729623 519.308862 224.280976 404.668816 224.280976 272.733659L224.280976 160.842927c0-17.646767 14.322014-31.96878 31.96878-31.96878s31.96878 14.322014 31.96878 31.96878l0 111.890732c0 102.587817 69.564066 191.716777 169.114849 216.748332 17.134267 4.315785 27.52512 21.674833 23.241303 38.778131C476.930248 542.805916 463.886985 552.460488 449.59694 552.460488L449.59694 552.460488zM574.40306 552.460488c-14.290045 0-27.301339-9.654572-30.977748-24.168398-4.315785-17.134267 6.074068-34.493315 23.208336-38.777132C666.217397 464.450435 735.781463 375.321475 735.781463 272.733659L735.781463 160.842927c0-17.646767 14.290045-31.96878 31.96878-31.96878s31.96878 14.322014 31.96878 31.96878l0 111.890732c0 131.935157-89.448648 246.575204-217.483614 278.767766C579.613971 552.1408 576.992531 552.460488 574.40306 552.460488zM767.750244 896.124878c-17.678736 0-31.96878-14.322014-31.96878-31.96878l0-95.906341c0-102.619785-69.564066-191.748745-169.114849-216.748332-17.134267-4.283817-27.52512-21.674833-23.241303-38.778131 4.347754-17.134267 21.930583-27.397245 38.777132-23.208336C710.270377 521.642583 799.719024 636.28263 799.719024 768.249756l0 95.906341C799.719024 881.802864 785.42898 896.124878 767.750244 896.124878zM256.249756 896.124878c-17.646767 0-31.96878-14.322014-31.96878-31.96878l0-95.906341c0-131.967126 89.448648-246.607173 217.516581-278.767766 17.167235-4.18791 34.461346 6.074068 38.777132 23.209335 4.315785 17.134267-6.074068 34.493315-23.241303 38.777132C357.750634 576.501011 288.218537 665.629971 288.218537 768.249756l0 95.906341C288.218537 881.802864 273.896523 896.124878 256.249756 896.124878zM863.656585 192.811707 160.343415 192.811707c-17.646767 0-31.96878-14.322014-31.96878-31.96878L128.374634 32.967805c0-17.646767 14.322014-31.96878 31.96878-31.96878l703.313171 0c17.678736 0 31.96878 14.322014 31.96878 31.96878l0 127.875122C895.625366 178.489694 881.335321 192.811707 863.656585 192.811707zM192.312195 128.874146l639.37561 0L831.687805 64.936585 192.312195 64.936585 192.312195 128.874146zM863.656585 1024 160.343415 1024c-17.646767 0-31.96878-14.322014-31.96878-31.96878L128.374634 864.156098c0-17.646767 14.322014-31.96878 31.96878-31.96878l703.313171 0c17.678736 0 31.96878 14.322014 31.96878 31.96878l0 127.875122C895.625366 1009.677986 881.335321 1024 863.656585 1024zM192.312195 960.062439l639.37561 0 0-63.937561L192.312195 896.124878 192.312195 960.062439z"
-                                  p-id="5480" fill="#fc6b79"></path>
-                        </svg>
-                        <TimeDown :time-end="timeEndHandler" :endTime="activityPO.endDate" />
-                    </div>
-                </div>
-                <div class="a-content">
-                    <p class="shoplist-title">活动商家</p>
-                    <ActivityMerchant :merchantList="activityPO.merchantList" :aid="$route.params.aid"/>
-                    <span @click="merchantJoin" class="a-content-join">我是商家，我想出现在这里</span>
-                </div>
+        <div class="i_s_box">
+            <input type="text" placeholder="请输入机构或学生姓名查询">
+        </div>
+        <div class="i_s_content">
+            <div class="counter_box">
+                <div class="counter_up">距本次活动结束还剩：<TimeDown :time-end="timeEndHandler" :endTime="activityPO.endDate" /></div>
+                <div class="counter_down">本次活动的最终解释权归趣教育所有</div>
             </div>
+            <div class="c_title">活动介绍</div>
+            <div class="introduce">{{activityPO.description}}</div>
+            <div class="c_title">活动商家</div>
+            <div class="c_shop">
+                <div 
+                    class="shop_item bb"
+                    v-for="(item, index) in activityPO.merchantList"
+                    @click="$router.push({name:'activity-aid-merchant-mid',params:{mid:item.id,aid:$route.params.aid}})"
+                    :key="index">
+                    <div 
+                        class="item_img bg_img"
+                        :style="'background-image:url('+item.logo+')'"></div>
+                    <div class="item_text">
+                        <div class="item_title">{{item.name}}<span>{{item.categoryName}}</span></div>
+                        <div class="item_des ellipsis2">“{{item.description}}”</div>
+                        <div class="item_bottom">
+                            <div>报名人数 {{item.replyCount}}</div>
+                            <p><span>热度</span>{{item.hotNum}}</p>
+                        </div>
+                    </div>
+                </div>
+                <div @click="merchantJoin" class="a-content-join">我是商家，我想出现在这里</div>
+            </div>
+            <div class="c_title">趣学卡</div>
+            <div class="qkx"></div>
         </div>
 
         <ActivityTabbar :page="0" :aid="$route.params.aid"/>
@@ -163,7 +162,7 @@
             ActivityTabbar,TimeDown,ActivityMerchant
         },
         mounted() {
-            var that = this
+            var that = this;
             wxJssdkInit(window.location.href,
                 [
                     'onMenuShareTimeline',
@@ -193,15 +192,45 @@
 </script>
 
 <style scoped>
+    #activityIndex {
+        padding-bottom: 1.8rem;
+        background: #fff;
+    }
     .a-head{
         width:100%;
-        height:180px;
+        height:4rem;
         overflow: hidden;
+        position: relative;
     }
     .a-head img{
         width:100%;
-        height:190px;
+        height:100%;
     }
+
+    .i_s_box {
+       width: 6.9rem; 
+       height: .9rem;
+       box-shadow:0px 2px 4px 0px rgba(45,45,84,0.16);
+       border-radius:.06rem;
+       position: absolute;
+       left: 0;
+       right: 0;
+       margin: auto;
+       top: 3.6rem;
+       z-index: 2;
+       padding-left: .94rem;
+       background: #fff url(http://gaif.oss-cn-hangzhou.aliyuncs.com/gf_webapp/search.svg) no-repeat .4rem center / .34rem .34rem;
+    }
+
+    .i_s_box>input {
+        width: 100%;
+        height: 100%;
+        display: block;
+        border: none;
+        outline: none;
+        font-size: .28rem;
+    }
+
     .a-content-bg{
         width:100%;
         background-size: 100%;
@@ -273,11 +302,20 @@
         text-align: left;
     }
     .a-content-join{
-        color:#999;
-        text-decoration: underline;
-        margin-top:15px;
-        display: block;
+        color:#BD987C;
+        margin-top:.4rem;
         text-align: right;
+        margin-bottom: .1rem;
+    }
+    .a-content-join:before {
+        content: '';
+        width: .56rem;
+        height: .38rem;
+        display: inline-block;
+        position: relative;
+        top: .07rem;
+        margin-right: .09rem;
+        background: url(http://gaif.oss-cn-hangzhou.aliyuncs.com/dc/dmm/shangjia.png) no-repeat 0 0 / contain;
     }
     .a-desc-origin{
         display: flex;
@@ -289,9 +327,221 @@
         border-radius: 5px;
         padding:0 5px;
     }
+
+    .i_s_content {
+        background: #fff;
+        padding-top: 1rem;
+    }
+
+    .counter_box {
+        width: 7.2rem;
+        height: 1.64rem;
+        border-radius: .14rem 0 0 .14rem;
+        overflow: hidden;
+        margin-left: .3rem;
+        background:linear-gradient(90deg,rgba(245,92,68,1) 0%,rgba(255,75,148,1) 100%);
+    }
+
+    .counter_up {
+        height: 1rem;
+        line-height: 1rem;
+        padding-left: .2rem;
+        font-size: .28rem;
+        color: #fff;
+    }
+
+    .counter_down {
+        background: #FFECE9;
+        height: .64rem;
+        line-height: .64rem;
+        padding: 0 .3rem;
+        text-align: right;
+        font-size: .22rem;
+        color: #D47A7B;
+    }
+
+    .c_title {
+        color: #0F1323;
+        font-size: .36rem;
+        line-height: .47rem;
+        padding-top: .6rem;
+        padding-bottom: .3rem;
+        font-weight: bold;
+        padding-left: .3rem;
+        position: relative;
+    }
+
+    .c_title:before {
+        content: '';
+        background: #FF7112;
+        height: .28rem;
+        position: absolute;
+        left: 0;
+        top: .7rem;
+        width: .06rem;
+    }
+
+    .introduce {
+        padding: 0 .3rem;
+        color: #636A7C;
+        font-size: .28rem;
+        line-height: .46rem;
+    }
+
+    .bg_img {
+        background-repeat: no-repeat;
+        -webkit-background-size: cover;
+        background-size: cover;
+        background-position: center center;
+    }
+
+    .ellipsis {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .bb {
+      position: relative;
+    }
+
+    .bb:before {
+      content: '';
+      width: 100%;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      height: 1px;
+      background: #E7E7E7;
+      transform: scaleY(.5);
+    }
+
+    .c_shop {
+        padding: 0 .3rem;
+    }
+
+    .shop_item {
+        padding: .5rem 0;
+        display: -webkit-flex;
+        display: -moz-flex;
+        display: -ms-flex;
+        display: -o-flex;
+        display: flex;
+    }
+
+    .item_img {
+        width: 2.1rem;
+        height: 1.64rem;
+        border-radius: .08rem;
+    }
+
+    .item_text {
+        flex: 1;
+        height: .164rem;
+        padding-left: .2rem;
+    }
+
+    .item_title {
+        font-size: .32rem;
+        font-weight: bold;
+        color: #0F1323;
+        line-height: .42rem;
+    }
+
+    .item_title>span {
+        display: inline-block;
+        background: #12A9FF;
+        color: #fff;
+        font-size: .24rem;
+        line-height: 1.5;
+        padding: .01rem .12rem .02rem;
+        border-radius: .2rem .03rem .2rem .03rem;
+        float: right;
+        font-weight: normal;
+    }
+
+    .item_des {
+        color: #999;
+        font-size: .26rem;
+        line-height: .35rem;
+        padding-top: .12rem;
+        height: .81rem;
+        margin-bottom: .1rem;
+    }
+
+    .ellipsis2 {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;  
+        -webkit-box-orient: vertical;
+      }
+
+    .item_bottom {
+        color: #666;
+        font-size: .24rem;
+        line-height: .31rem;
+        display: -webkit-flex;
+        display: -moz-flex;
+        display: -ms-flex;
+        display: -o-flex;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .item_bottom>p:before {
+        content: '';
+        width: .2rem;
+        height: .2rem;
+        display: inline-block;
+        background: url(http://gaif.oss-cn-hangzhou.aliyuncs.com/dc/dmm/hot.png) no-repeat 0 0 / contain;
+        margin-right: .1rem;
+    }
+
+    .item_bottom>p>span {
+        color: #4188EC;
+        margin-right: .05rem;
+    }
+
+    .launch {
+        width: .87rem;
+        height: .75rem;
+        background: url(http://gaif.oss-cn-hangzhou.aliyuncs.com/dc/dmm/faqi.png) no-repeat 0 0 /contain;
+        position: absolute;
+        right: .3rem;
+        top: 1.3rem;
+    }
+
+    .shop_join {
+        width: .82rem;
+        height: .75rem;
+        background: url(http://gaif.oss-cn-hangzhou.aliyuncs.com/dc/dmm/baoming.png) no-repeat 0 0 /contain;
+        position: absolute;
+        right: .3rem;
+        bottom: .8rem;
+    }
+
+    .qkx {
+        height: 3rem;
+        background: url(http://gaif.oss-cn-hangzhou.aliyuncs.com/dc/dmm/qxk.png);
+        -webkit-background-size: cover;
+        background-size: cover;
+        width: 6.9rem;
+        margin: 0 auto;
+    }
 </style>
 <style>
+
     .van-dialog__confirm, .van-dialog__confirm:active{
         color:#fc6b79;
+    }
+
+    #activityIndex .counter_up b {
+        color: #FF3047;
+        padding: .05rem .1rem;
+        background: #fff;
+        border-radius: .04rem;
+        margin-right: .08rem;
+        margin-left: .08rem;
     }
 </style>

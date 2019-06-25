@@ -1,4 +1,6 @@
-import pkg from './package'
+import pkg from './package';
+const rem = '!function(e){var t,n=document,i=window,o=n.documentElement;function u(){var t=o.getBoundingClientRect().width/e*100;o.style.fontSize=t+"px"}u(),i.addEventListener("resize",function(){clearTimeout(t),t=setTimeout(u,300)},!1),i.addEventListener("pageshow",function(e){e.persisted&&(clearTimeout(t),t=setTimeout(u,300))},!1)}(750);';
+
 
 export default {
   mode: 'universal',
@@ -21,13 +23,15 @@ export default {
     ],
     script: [
       { src: 'https://easytuan.gitee.io/node-elm-api/public/flexible.js' },
+      { innerHTML: rem, type: 'text/javascript', charset: 'utf-8' }
     ],
     htmlAttrs: {
       style:'font-size:12px'
     },
     bodyAttrs:{
       style:'font-size:12px'
-    }
+    },
+    __dangerouslyDisableSanitizers: ['script']
   },
 
   /*
@@ -71,7 +75,7 @@ export default {
 
   proxy:{
     '/api': {
-      target: 'http://localhost:8911',
+      target: 'http://www.djtp.com/api',
       pathRewrite: {
         '^/api' : '/'
       }

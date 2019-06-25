@@ -150,18 +150,18 @@
         .nav-container {
             @include fj();
             flex-wrap: wrap;
-            margin-bottom: px2rem(30px);
+            margin-bottom: 30px;
 
             .nav-item {
                 @include wh(20%, 80px);
                 text-align: center;
                 color: #666;
-                font-size: px2rem(24px);
-                padding-top: px2rem(10px);
+                font-size: 15px;
+                padding-top: 20px;
 
                 img {
                     display: block;
-                    margin: 0 auto;
+                    margin: 0 auto .07rem;
                     @include wh(50px, 50px);
                 }
             }
@@ -173,8 +173,8 @@
 
         .shoplist-title {
             @include fj(center);
-            font-size: px2rem(30px);
-            margin-bottom: px2rem(20px);
+            font-size: 15px;
+            margin-bottom: 20px;
         }
 
         .show-list {

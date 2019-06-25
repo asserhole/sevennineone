@@ -1,16 +1,19 @@
 <template>
     <div class="shoplist_container">
         <ul
-                v-if="shopListArr.length"
-                type="1">
-            <router-link
-                    v-for="item in shopListArr"
-                    :to="{ path: 'shop', query:{id: item.id }}"
-                    :key="item.id"
-                    class="shop_li">
-                <section style="width:64px;height:64px;" :style="'background-image:url('+item.logo+');'">
-                </section>
-                <hgroup class="shop_right">
+            v-if="shopListArr.length"
+            type="1">
+            <li
+                v-for="item in shopListArr"
+                @click="$router.push({ name: 'shop', query:{id: item.id }})"
+                :key="item.id"
+                class="shop_li">
+                <div 
+                    class="bg_img" 
+                    style="width:64px;height:64px;flex-shrink: 0;" 
+                    :style="'background-image:url('+item.logo+');'">
+                </div>
+                <div class="shop_right">
                     <header class="shop_detail_header">
                         <h4 class="shop_title ellipsis">{{ item.name }}</h4>
                     </header>
@@ -18,7 +21,7 @@
                         热度：<span style="color:#fc6b79">{{item.hot_num}}</span>
                     </h5>
                     <h5 class="fee_distance">
-                        <p class="fee">
+                        <p class="fee ellipsis">
                             <i class="fa fa-map-marker" aria-hidden="true"></i>
                             {{ getAddress(item.address) }}
                         </p>
@@ -29,8 +32,8 @@
                             <span class="order_time">23分钟</span>
                         </p>
                     </h5>
-                </hgroup>
-            </router-link>
+                </div>
+            </li>
         </ul>
         <p
                 v-if="touchend"
@@ -129,12 +132,13 @@
 
     .shop_li {
         display: flex;
-        border-bottom: 0.025rem solid #f1f1f1;
-        padding: 0.7rem 0.4rem;
+        border-bottom: 1px solid #f1f1f1;
+        padding: .2rem;
     }
 
     .shop_img {
-        @include wh(2.7rem, 2.7rem);
+        width: 2.7rem;
+        height: 2.4rem;
         display: block;
         margin-right: 0.4rem;
     }
@@ -148,8 +152,9 @@
     }
 
     .shop_right {
-        flex: auto;
-
+        flex: 1;
+        box-sizing: border-box;
+        padding-left: 10px;
         .shop_detail_header {
             @include fj;
             align-items: center;
@@ -158,7 +163,7 @@
                 width: 8.5rem;
                 color: #333;
                 padding-top: 0.01rem;
-                @include font(0.65rem, 0.65rem, "PingFangSC-Regular");
+                @include font(16px, 30px, "PingFangSC-Regular");
                 font-weight: 700;
             }
 
@@ -192,7 +197,7 @@
         .rating_order_num {
             display: flex;
             height: 0.6rem;
-            margin-top: 0.52rem;
+            margin-top: 0.2rem;
             color:#999;
 
             .rating_order_num_left {
@@ -244,16 +249,20 @@
         }
 
         .fee_distance {
-            margin-top: 0.52rem;
+            margin-top: 0.02rem;
+            width: 5.5rem;
             @include fj;
-            @include sc(0.5rem, #333);
+            @include sc(12px, #333);
 
             .fee {
                 transform: scale(0.9);
-                @include sc(0.5rem, #666);
+                @include sc(14px, #666);
             }
 
             .distance_time {
+                font-size: 12px;
+                width: 1.8rem;
+                flex-shrink: 0;
                 transform: scale(0.9);
 
                 span {

@@ -9,7 +9,7 @@
             <div class="shop_join" @click="merchantJoin"></div>
         </div>
         <div class="i_s_box">
-            <input type="text" placeholder="请输入机构或学生姓名查询">
+            <input type="text" @focus="searchToast=true" placeholder="请输入机构或学生姓名查询">
         </div>
         <div class="i_s_content">
             <div class="counter_box">
@@ -44,6 +44,46 @@
         </div>
 
         <ActivityTabbar :page="0" :aid="$route.params.aid"/>
+
+        <div class="search_toast" v-if="searchToast">
+            <div id="top_nav1">搜索
+              <span @click="searchToast=false" class="lefticon"></span>
+            </div>
+            <div class="i_s_box up_aniamte">
+                <input 
+                    v-model="sParams.word" 
+                    v-focus 
+                    type="text" 
+                    placeholder="请输入机构或学生姓名查询"
+                    @keyup.enter="searchByWords()">
+            </div>
+            <div 
+                class="list_box"
+                v-if="list1.length>0||list2.length>0">
+                <div class="a_lb_list_head a_lb_list_grap">
+                    <div>商家</div>
+                </div>
+                <div 
+                    @click="goMerchantPageList(item.id)"
+                    v-for="(item,index) in list1"
+                    v-if="list1.length>0"
+                    class="a_lb_list bb">
+                    <div class="a_lb_list_img" :style="'background-image:url('+item.logo+');'"></div>
+                    <div>{{item.name}}</div>
+                </div>
+                <div class="a_lb_list_head a_lb_list_grap">
+                    <div>学生</div>
+                </div>
+                <div 
+                    @click="$router.push({name: 'donate-uid',params:{uid:item.id}})"
+                    v-for="(item,index) in list2"
+                    v-if="list2.length>0" 
+                    class="a_lb_list bb">
+                    <div class="a_lb_list_img" :style="'background-image:url('+item.imageList[0]+');'"></div>
+                    <div>{{item.childName}}</div>
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -56,14 +96,21 @@
     import {getCookie, setCookie} from "../../../assets/utils/util";
     import {accessToken, token} from "../../../assets/services/user";
     import {getMerchantJoinInfo} from "../../../assets/services/shopping";
-    import {getExistsByAidAndMid} from "../../../assets/services/activity";
+    import {getExistsByAidAndMid, search} from "../../../assets/services/activity";
 
     export default {
         name: "index",
         data(){
             return {
+                searchToast: false,
                 userinfo:{},
-                aid:this.$route.params.aid
+                sParams: {
+                    aid: '',
+                    word: ''
+                },
+                aid:this.$route.params.aid,
+                list1: [],
+                list2: [],
             }
         },
         async asyncData({params}){
@@ -74,7 +121,27 @@
                 activityPO:res.data
             }
         },
+        directives: {
+            focus: {
+                inserted: function (el) {
+                    el.focus()
+                }
+            }
+        },
         methods:{
+            goMerchantPage(index){
+                this.$router.push({name:'activity-aid-merchant-mid',params:{aid:this.aid,mid:this.boardList[index].id}})
+            },
+            goMerchantPageList(id){
+                this.$router.push({name:'activity-aid-merchant-mid',params:{aid:this.aid,mid:id}})
+            },
+            async searchByWords(){
+                var that = this;
+                const res = await search(that.sParams)
+                var d = res.data;
+                that.list1 = d.merchantList;
+                that.list2 = d.childList;
+            },
             timeEndHandler(){ // 倒计时结束事件
 
             },
@@ -152,6 +219,7 @@
         },
         mounted() {
             var that = this;
+            that.sParams.aid = that.$route.params.aid;
             wxJssdkInit(window.location.href,
                 [
                     'onMenuShareTimeline',
@@ -518,6 +586,93 @@
         width: 6.9rem;
         margin: 0 auto;
     }
+
+    .search_toast {
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background: #fff;
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 9;
+    }
+
+    @keyframes toup {
+        from {
+            top: 3.6rem;
+        }
+        to {
+            top: 1.2rem;
+        }
+    }
+
+    .up_aniamte {
+        top: 1.2rem;
+        animation: toup .2s linear;
+    }
+
+    #top_nav1 {
+        background: #fff;
+        height: 1rem;
+        line-height: 1rem;
+        position: relative;
+        text-align: center;
+        color: #333;
+        font-size: .36rem;
+        box-shadow:0rem 0.01rem 0rem 0rem rgba(218,218,218,1);
+      }
+      #top_nav1 .lefticon {
+        width: 1rem;
+        height: 1rem;
+        position: absolute;
+        top: 0;
+        left: 0;
+        background: url(http://gaif.oss-cn-hangzhou.aliyuncs.com/gf_webapp/login/left_arrow.svg) no-repeat center center / .4rem .4rem;
+      }
+
+      .a_leaderboard{
+          width: 100%;
+          position: fixed;
+          background: white;
+          height: 100%;
+          overflow: scroll;
+          padding-bottom:55px;
+      }
+      .a_lb_list{
+          display: flex;
+          align-items: center;
+          padding:4px 15px;
+
+      }
+      .a_lb_list_img{
+          height:50px;
+          width:50px;
+          background-size: cover;
+          background-repeat: no-repeat;
+          margin:0 15px;
+      }
+      .a_lb_list_hot{
+          margin-left: auto;
+          margin-right:20px;
+          font-size:14px;
+          font-weight:600;
+          color:#fc6b79;
+      }
+      .a_lb_list_grap{
+          background-color: #eee;
+      }
+      .a_lb_list_head{
+          height:35px;
+          display: flex;
+          justify-content: space-between;
+          padding:0 35px 0 15px;
+          line-height: 35px;
+      }
+
+      .list_box {
+        padding-top: 1.3rem;
+      }
 </style>
 <style>
 

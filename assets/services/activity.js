@@ -72,3 +72,12 @@ export const auditActivity = (params)=>{
         data: params,
     })
 }
+
+// 审核活动
+export const search = (params)=>{
+    return request({
+        url: `${prefix}/search`,
+        method: 'GET',
+        data: params,
+    })
+}

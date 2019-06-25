@@ -73,7 +73,7 @@
                     </div>
                     <p class="a-merchant-content-suitem_age">
                         <span></span>
-                        适合年龄段：{{substrSui(item.suitable_age)}}
+                        适合年龄段：{{item.suitable_age}}
                     </p>
                 </div>
 
@@ -210,10 +210,6 @@
                 // let eword = '湖南省岳阳市岳阳楼区花板湖路48号岳阳市第九中学'
                 window.location.href = 'https://apis.map.qq.com/tools/routeplan/eword='+eword+'?key=XOOBZ-3G2WU-ME2VZ-4AG7A-4NDTT-Z4F7O&referer=791'
             },
-            // 去掉 岁
-            substrSui(str){
-                return str.substring(0,str.indexOf('岁')) + '岁'
-            }
 
         },
         async asyncData( {params} ){

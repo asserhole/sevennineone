@@ -47,7 +47,9 @@
 
         <div class="search_toast" v-if="searchToast">
             <div id="top_nav1">搜索
-              <span @click="searchToast=false" class="lefticon"></span>
+              <span 
+                @click="searchToast=false" 
+                class="lefticon"></span>
             </div>
             <div class="i_s_box up_aniamte">
                 <input 
@@ -57,7 +59,7 @@
                     placeholder="请输入机构或学生姓名查询"
                     @keyup.enter="searchByWords()">
             </div>
-            <div 
+            <div
                 class="list_box"
                 v-if="list1.length>0||list2.length>0">
                 <div class="a_lb_list_head a_lb_list_grap">

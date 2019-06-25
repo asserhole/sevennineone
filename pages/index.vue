@@ -1,20 +1,18 @@
 <template>
     <div class="home-page">
-        <div class="top_head">
-            <div @click="$router.push({name:'cityselect'})">
+        <div class="banner_box">
+            <div class="city_select" @click="$router.push({name:'cityselect'})">
                 <i class="fa fa-map-marker" aria-hidden="true"></i>&nbsp;{{city}}
-                <span style="text-decoration: underline;font-size: 12px;">切换</span>
             </div>
         </div>
         <nav class="nav-container">
             <div
-                    v-for="(item, index) in navList"
-                    :key="index"
-                    class="nav-item"
-                    @click="$router.push({path:'/newretail', query:{ title: item.id ,name:item.text }})">
-                <img
-                        :src="item.imgUrl"
-                        alt="">
+                v-for="(item, index) in navList"
+                :key="index"
+                class="nav-item"
+                @click="$router.push({path:'/newretail', query:{ title: item.id ,name:item.text }})">
+            <img
+                :src="item.imgUrl">
                 {{ item.text }}
             </div>
         </nav>
@@ -130,6 +128,27 @@
     };
 
 </script>
+<style scoped>
+    .banner_box {
+        height: 3.65rem;
+        position: relative;
+        background: url(http://gaif.oss-cn-hangzhou.aliyuncs.com/dc/dmm_index/banner.png);
+        -webkit-background-size: 100% 100%;
+        background-size: 100% 100%;
+    }
+
+    .city_select {
+        font-size: .28rem;
+        color: #fff;
+        padding-top: .2rem;
+        padding-left: .3rem;
+    }
+
+    .home-page {
+        width: 100%;
+        overflow-x: hidden;
+    }
+</style>
 
 <style lang="scss">
     @import "../assets/styles/mixin";
@@ -156,19 +175,20 @@
                 @include wh(20%, 80px);
                 text-align: center;
                 color: #666;
-                font-size: 15px;
-                padding-top: 20px;
+                font-size: .26rem;
+                line-height: .35rem;
+                padding-top: .1rem;
 
                 img {
                     display: block;
-                    margin: 0 auto .07rem;
+                    margin: 0 auto .01rem;
                     @include wh(50px, 50px);
                 }
             }
         }
 
         .swiper {
-            padding: 0 0.4rem;
+            padding: 0 0.3rem;
         }
 
         .shoplist-title {
@@ -178,7 +198,7 @@
         }
 
         .show-list {
-            padding: 0 0.4rem;
+            padding: 0 0.3rem;
 
             a {
                 display: inline-block;

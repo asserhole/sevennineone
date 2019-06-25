@@ -6,6 +6,9 @@ logs
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+package-lock.json
+.eslintrc.js
+.editorconfig
 
 # Runtime data
 pids

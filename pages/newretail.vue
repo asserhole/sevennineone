@@ -33,12 +33,22 @@
   };
 
 </script>
+<style>
+  .newretail-page .mint-header {
+      height: 1rem;
+      font-size: 0.35rem;
+  }
+
+  .newretail-page .mint-header .mintui {
+      font-size: 0.35rem;
+  }
+</style>
 
 <style lang="scss">
   @import "../assets/styles/mixin";
 
   .newretail-page {
-    padding: px2rem(88px) 0 0 0;
+    padding: 1rem 0 0 0;
   }
 
 </style>

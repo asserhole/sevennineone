@@ -78,6 +78,9 @@
         props:{
             aid:{
                 default:1
+            },
+            payStatus:{
+                default:false
             }
         },
         data(){
@@ -94,7 +97,14 @@
                 if (!token && !code) {
                     wechat_authorize_userinfo(window.location.href)
                 }
-                this.$store.commit('setGiftBarShowStatus',true)
+                if(this.payStatus){
+                    this.$store.commit('setGiftBarShowStatus',true)
+                }else{
+                    this.$toast({
+                        message: '当前报名进度已达成！',
+                        duration: 1500
+                    })
+                }
             },
             async getAccessToken(){
                 let token = getCookie("token")

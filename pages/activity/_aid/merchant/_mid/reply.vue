@@ -10,7 +10,6 @@
                         <div class="reply_choose_subject_input_info">
                             <span class="bold">{{r.name}}</span>
                             <span class="pink">{{r.price/100}}元/学期</span>
-                            <span class="gray">{{r.start_time.substring(0,5)}}~{{r.end_time.substring(0,5)}}</span>
                             <span class="gray">招生：{{r.real_students}}/{{r.max_students}}人&nbsp;{{r.real_students>=r.max_students?'已满人':''}}</span>
                         </div>
                     </div>
@@ -357,7 +356,10 @@
     }
     .reply_choose_subject_input_img{
         height:64px;
-        width:64px;
+        width:120px;
+        background-size: cover;
+        background-repeat: no-repeat;
+        margin-right:10px;
     }
     .reply_choose_subject_input_info{
         display: flex;

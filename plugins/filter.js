@@ -68,8 +68,7 @@ export function timeago(val){   //dateTimeStamp是一个时间毫秒，注意时
     }else if(diffValue >= 0 && diffValue <= minute){
         result = "刚刚"
     }else {
-        var datetime = new Date();
-        datetime.setTime(val);
+        var datetime = new Date(val.replace(/-/g, '/'));
         var Nyear = datetime.getFullYear();
         var Nmonth = datetime.getMonth() + 1 < 10 ? "0" + (datetime.getMonth() + 1) : datetime.getMonth() + 1;
         var Ndate = datetime.getDate() < 10 ? "0" + datetime.getDate() : datetime.getDate();

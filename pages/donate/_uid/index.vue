@@ -29,7 +29,7 @@
                             <p class="reply_detail_childage">{{replyDetail.childAge}}岁</p>
                             <p class="reply_detail_poster_desc_f">
                                 <span>梦想介绍</span>
-                                <span>{{replyDetail.merchantName}}</span>
+                                <span @click="$router.push({name:'activity-aid-merchant-mid',params:{aid:replyDetail.activityId,mid:replyDetail.merchantId}})">{{replyDetail.merchantName}}&nbsp;<i class="fa fa-angle-right" aria-hidden="true"></i></span>
                             </p>
                             <p class="reply_detail_poster_desc_t">
                                 <span>梦想课程</span>
@@ -51,8 +51,9 @@
                     <p class="a-merchant_content_hst">圆梦进度</p>
                     <div class="reply_detail_progress clearfix">
                         <div class="reply_detail_progress_step reply_detail_progress_step_l">
-                            <p :class="{'finish_step':currStep>=5}">
-                                <i class="fa" :class="{'fa-circle':currStep>=5,'fa-circle-o':currStep<5}"
+                            <p :class="{'finish_step':currStep>=4}">
+                                <i class="fa" :class="{'fa-circle':currStep>=4,'fa-circle-o':currStep<4}"
+
                                    aria-hidden="true"></i>
                                 <span>梦想成真&nbsp;<br />免费入学&nbsp;</span>
                             </p>
@@ -106,7 +107,15 @@
                         </svg>
                     </div>
                     <div class="reply_progress_detail">
-                        课程学费<span class="reply_progress_detail_imp">{{replyDetail.totalFee/100}}</span>元,当前已交<span class="reply_progress_detail_imp">{{replyDetail.paidFee/100}}</span>元,离梦想仅一步之遥!</span>
+                        <p v-if="replyDetail.paidFee < replyDetail.totalFee">
+                            课程学费
+                            <span class="reply_progress_detail_imp">{{replyDetail.totalFee/100}}</span>
+                            元,当前已交
+                            <span class="reply_progress_detail_imp">{{replyDetail.paidFee/100}}</span>元,离梦想仅一步之遥!
+                        </p>
+                        <p v-if="replyDetail.paidFee == replyDetail.totalFee">
+                            您已成功报名入学.
+                        </p>
                     </div>
                 </div>
 
@@ -155,11 +164,11 @@
 
 
                 <Gift :giftList="giftList" @giftSend="giftSend"/>
-                <Sku :gift="currGift" @payConfirm="payConfirmHandler"/>
+                <Sku :gift="currGift" @payConfirm="payConfirmHandler" :replyDetail="replyDetail"/>
             </div>
         </van-pull-refresh>
         <div>
-            <DonateTabbar :aid="replyDetail.activityId"/>
+            <DonateTabbar :aid="replyDetail.activityId" :payStatus="replyDetail.paidFee < replyDetail.totalFee"/>
         </div>
         <div @click="shareOverlayShow=false" v-if="shareOverlayShow" class="share_overlay guide_wrap">
 
@@ -321,33 +330,33 @@
                 )
             },
             // 图表初始化
-            initEchart(){
-                // 基于准备好的dom，初始化echarts实例
-                var myChart = this.$echarts.init(document.getElementById('echart_main'))
-
-                // 指定图表的配置项和数据
-                var option = {
-                    title: {
-                        text: 'ECharts 入门示例'
-                    },
-                    tooltip: {},
-                    legend: {
-                        data:['销量']
-                    },
-                    xAxis: {
-                        data: ["衬衫","羊毛衫","雪纺衫","裤子","高跟鞋","袜子"]
-                    },
-                    yAxis: {},
-                    series: [{
-                        name: '销量',
-                        type: 'bar',
-                        data: [5, 20, 36, 10, 10, 20]
-                    }]
-                };
-
-                // 使用刚指定的配置项和数据显示图表。
-                myChart.setOption(option);
-            }
+            // initEchart(){
+            //     // 基于准备好的dom，初始化echarts实例
+            //     var myChart = this.$echarts.init(document.getElementById('echart_main'))
+            //
+            //     // 指定图表的配置项和数据
+            //     var option = {
+            //         title: {
+            //             text: 'ECharts 入门示例'
+            //         },
+            //         tooltip: {},
+            //         legend: {
+            //             data:['销量']
+            //         },
+            //         xAxis: {
+            //             data: ["衬衫","羊毛衫","雪纺衫","裤子","高跟鞋","袜子"]
+            //         },
+            //         yAxis: {},
+            //         series: [{
+            //             name: '销量',
+            //             type: 'bar',
+            //             data: [5, 20, 36, 10, 10, 20]
+            //         }]
+            //     };
+            //
+            //     // 使用刚指定的配置项和数据显示图表。
+            //     myChart.setOption(option);
+            // }
         },
         mounted() {
             console.log(this.replyDetail)
@@ -421,7 +430,6 @@
                 if (this.replyDetail.paidFee === this.replyDetail.totalFee) {
                     step = 4
                 }
-                // todo  入学状态
                 return step
             },
             show() {
@@ -680,7 +688,7 @@
     .reply_progress_detail_img{
         margin-left:20px;
         margin-bottom: -6px;
-        z-index: 10;
+        z-index: 1;
     }
     .reply_progress_detail_img svg{
         height:40px;

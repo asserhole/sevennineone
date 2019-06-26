@@ -14,7 +14,7 @@
                             <!--<img :src="merchant.logo" />-->
                             {{merchant.name}}
                         </p>
-                        <p class="a-merchant_gray">“{{merchant.description}}”</p>
+                        <p class="a-merchant_gray">“{{merchant.poster}}”</p>
                     </div>
                     <a class="a-merchant_title_phone" href="tel:15311480726">
                         <svg width="106px" height="109px" viewBox="0 0 106 109" version="1.1"
@@ -73,7 +73,7 @@
                     </div>
                     <p class="a-merchant-content-suitem_age">
                         <span></span>
-                        适合年龄段：{{substrSui(item.suitable_age)}}
+                        适合年龄段：{{item.suitable_age}}
                     </p>
                 </div>
 
@@ -84,7 +84,7 @@
                 <div @click="goDonatePage(i)" v-if="replyHistoryTotal>0" :class="{'a-merchant_hisre_item_tw':i%2!==0}"
                      v-for="(r,i) in replyHistoryList" class="a-merchant_hisRe_item">
                     <div class="a-merchant_hisRe_img">
-                        <img :src="r.avatar"/>
+                        <img :src="r.imageList[0]"/>
                     </div>
                     <span class="a-merchant_content_hst_name" style="margin-left:5px;">
                         {{r.childName}}
@@ -95,6 +95,14 @@
                 <div v-if="replyHistoryTotal===0" class="a-merchant_hisRe_item">
                     <p class="gray">暂无信息</p>
                 </div>
+            </div>
+
+            <div class="a-merchant_content_sub clearfix">
+                <p class="a-merchant_content_hst">商家介绍</p>
+                <div class="a-merchant-content-suitem">
+                    <p style="color:#666;font-size:13px;">{{merchant.description}}</p>
+                </div>
+
             </div>
         </div>
         <ReplyTabbar :page="-1" :aid="aid" :infoNum="replyInfoLen" @replyListClick="replyListClick"  :mid="$route.params.mid"/>
@@ -210,10 +218,6 @@
                 // let eword = '湖南省岳阳市岳阳楼区花板湖路48号岳阳市第九中学'
                 window.location.href = 'https://apis.map.qq.com/tools/routeplan/eword='+eword+'?key=XOOBZ-3G2WU-ME2VZ-4AG7A-4NDTT-Z4F7O&referer=791'
             },
-            // 去掉 岁
-            substrSui(str){
-                return str.substring(0,str.indexOf('岁')) + '岁'
-            }
 
         },
         async asyncData( {params} ){
@@ -452,7 +456,6 @@
         margin-right:10px;
     }
     .a-merchant_hisRe_img img{
-        height:41px;
         width:41px;
     }
     .a-merchant_hisRe_item{
@@ -467,7 +470,7 @@
         font-size: 14px;
         font-weight: bold;
         margin-right:5px;
-        width: 7.5rem;
+        width: 3.5rem;
     }
     .a-merchant_hisre_item_tw{
         background-color: #f6f8fa;

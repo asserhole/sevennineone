@@ -55,6 +55,13 @@
                         <img :src="logoUrl" />
                     </div>
                 </div>
+                <div class="js-form-area">
+                    <span>banner</span>
+                    <div class="js-form-logo">
+                        <van-button @click="chooseBannerImg" type="primary">点击上传</van-button>
+                        <img :src="bannerUrl" />
+                    </div>
+                </div>
             </div>
 
             <!-- 城市选择器 -->
@@ -95,6 +102,7 @@
                 categoryList:[],
                 categoryShow:false,
                 logoUrl:'',
+                bannerUrl:'',
                 merchant:{
                     name:null,
                     province:null,
@@ -105,7 +113,8 @@
                     tel:null,
                     logo:null,
                     description:'',
-                    address:''
+                    address:'',
+                    banner:''
                 }
             }
         },
@@ -149,6 +158,28 @@
                             isShowProgressTips: 1, // 默认为1，显示进度提示
                             success: function (res) {
                                 that.merchant.logo = res.serverId; // 返回图片的服务器端ID
+                            }
+                        });
+                    }
+                });
+            },
+            // 点击上传Logo
+            chooseBannerImg(){
+                var that = this
+                wx.chooseImage({
+                    count: 1, // 默认9
+                    sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
+                    sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
+                    success: function (res) {
+                        let localIds = res.localIds; // 返回选定照片的本地ID列表，localId可以作为img标签的src属性显示图片
+                        that.bannerUrl = localIds[0] // 预览
+
+                        // 上传图片
+                        wx.uploadImage({
+                            localId: that.bannerUrl, // 需要上传的图片的本地ID，由chooseImage接口获得
+                            isShowProgressTips: 1, // 默认为1，显示进度提示
+                            success: function (res) {
+                                that.merchant.banner = res.serverId; // 返回图片的服务器端ID
                             }
                         });
                     }
@@ -203,6 +234,7 @@
                     }
                     this.merchant = res.data
                     this.logoUrl = res.data.logo
+                    this.bannerUrl = res.data.banner
                     this.busiLiUrl = res.data.businessLicense
                 }
             }

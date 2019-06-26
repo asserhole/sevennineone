@@ -41,10 +41,17 @@
                             placeholder="请输入电话号码"
                     />
                     <van-field
+                            v-model="merchant.poster"
+                            required
+                            clearable
+                            label="一句话介绍"
+                            placeholder="不超过100字"
+                    />
+                    <van-field
                             v-model="merchant.description"
                             label="简介"
                             type="textarea"
-                            placeholder="请输入机构简介"
+                            placeholder="请输入机构简介，不超过1000字"
                             rows="1"
                             autosize
                     />
@@ -134,7 +141,8 @@
                     businessLicense:null,
                     description:'',
                     banner:'',
-                    merchantImgList:[]  // 上传的服务器图片id
+                    merchantImgList:[],  // 上传的服务器图片id
+                    poster:null
                 }
             }
         },
@@ -265,6 +273,9 @@
                 }
                 if(!this.merchant.tel){
                     this.$toast("请输入电话号码");return;
+                }
+                if(!this.merchant.poster){
+                    this.$toast("请输入一句话介绍");return;
                 }
                 if(!this.merchant.logo){
                     this.$toast("请上传logo");return;

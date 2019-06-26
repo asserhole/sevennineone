@@ -34,8 +34,8 @@
                     :auto="3000"
                     style="height:100px;">
                 <mt-swipe-item
-                        v-for="(item, index) in bannerList"
-                        :key="index">
+                    v-for="(item, index) in bannerList"
+                    :key="index">
                     <img
                             :src="item"
                             alt="">
@@ -43,7 +43,7 @@
             </mt-swipe>
         </div>
         <div style="height:10px;clear:both"/>
-        <p class="shoplist-title">—— 推荐机构 ——</p>
+        <div class="c_title">推荐机构</div>
         <ShopList :city="city" :latng="latng"/>
         <Tabbar page="0"/>
     </div>
@@ -148,6 +148,27 @@
         width: 100%;
         overflow-x: hidden;
     }
+
+    .c_title {
+        color: #0F1323;
+        font-size: .36rem;
+        line-height: .47rem;
+        padding-top: .6rem;
+        padding-bottom: .3rem;
+        font-weight: bold;
+        padding-left: .3rem;
+        position: relative;
+    }
+
+    .c_title:before {
+        content: '';
+        background: #FF7112;
+        height: .28rem;
+        position: absolute;
+        left: 0;
+        top: .7rem;
+        width: .06rem;
+    }
 </style>
 
 <style lang="scss">
@@ -169,8 +190,8 @@
         .nav-container {
             @include fj();
             flex-wrap: wrap;
-            margin-bottom: 30px;
-
+            margin-bottom: .2rem;
+            margin-top: .1rem;
             .nav-item {
                 @include wh(20%, 80px);
                 text-align: center;

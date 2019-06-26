@@ -146,7 +146,6 @@
                 }
             },
             async submit(){
-                console.log(this.activity)
                 if(!this.activity.name){
                     this.$toast("请输入活动名称");return;
                 }
@@ -165,8 +164,13 @@
                 if(!this.activity.description){
                     this.$toast("请输入活动介绍");return;
                 }
-
-                let res = await addActivity(this.activity)
+                var obj = JSON.parse(JSON.stringify(this.activity));
+                let startDateStr = this.dateFormat(this.activity.startDate,'yyyy-MM-dd')
+                let endDateStr = this.dateFormat(this.activity.endDate,'yyyy-MM-dd')
+                obj.startDate = startDateStr;
+                obj.endDate = endDateStr;
+                console.log(obj)
+                let res = await addActivity(obj)
                 if(res.data > 0){
                     this.$router.push({name:"shop-joinfinish"})
                 }else{

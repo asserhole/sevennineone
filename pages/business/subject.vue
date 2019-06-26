@@ -82,6 +82,7 @@
             },
             // 打开
             openSubjectForm(index){
+                console.log("index:"+index)
                 this.formShow = true
                 this.currentSubjectIndex = index
             },
@@ -89,63 +90,8 @@
             finishSubject(data){
                 this.formShow = false
                 this.listSubject()
+                this.currentSubjectIndex = -1
             },
-            // 提交
-            async submit(){
-                if(this.total===0){
-                    this.$toast("请至少添加一门课程");return;
-                }
-                for (let i = 0; i < this.total; i++) {
-                    let sitem = this.subjectList[i]
-                    sitem.merchantId = this.$route.params.mid
-                    if(!sitem.name || sitem.name==='未设置标题'){
-                        this.$toast("课程标题输入有误");return
-                    }
-                    if(!sitem.startDate){
-                        this.$toast("课程开始日期输入有误");return
-                    }
-                    if(!sitem.endDate){
-                        this.$toast("课程结束日期输入有误");return
-                    }
-                    if(!sitem.startTime){
-                        this.$toast("上课时间输入有误");return
-                    }
-                    if(!sitem.startTime){
-                        this.$toast("下课时间输入有误");return
-                    }
-                    if(!sitem.rateType){
-                        this.$toast("上课频率输入有误");return
-                    }
-                    if(!sitem.during){
-                        this.$toast("每节课时长输入有误");return
-                    }
-                    if(!sitem.price){
-                        this.$toast("价格输入有误");return
-                    }
-                    if(!sitem.total){
-                        this.$toast("总节数输入有误");return
-                    }
-                    if(!sitem.maxStudents){
-                        this.$toast("每班最大学生数输入有误");return
-                    }
-                    if(!sitem.suitableAge){
-                        this.$toast("适合年龄段输入有误");return
-                    }
-                    if(!sitem.advImg){
-                        this.$toast("请为每门课程上传一张宣传图片");return
-                    }
-                }
-                console.log(this.subjectList)
-                let res = await saveSubjectBatch(this.subjectList)
-                if (res.data === this.total) {
-                    this.$router.push({name:'shop-joinfinish'})
-                }else{
-                    this.$toast.fail({
-                        message:'保存课程失败',
-                        duration:2000
-                    })
-                }
-            }
         },
         computed:{
             total(){

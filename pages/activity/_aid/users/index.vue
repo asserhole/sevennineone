@@ -90,11 +90,10 @@
             // 商家入驻
             merchantPage(){
                 // 商家入驻
-                if(this.userinfo.merchant === 0){
-                    this.$router.push({name:'shop-join'})
-                }
-                if(this.userinfo.merchant === 1){
-                    this.$router.push({name:'business'})
+                if (this.userinfo.merchant === 0) {
+                    this.$router.push({name: 'shop-join'})
+                } else if (this.userinfo.merchant === 1) {
+                    this.$router.push({name: 'business'})
                 }
             }
         },

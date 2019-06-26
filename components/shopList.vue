@@ -10,7 +10,7 @@
                 class="shop_li">
                 <div 
                     class="bg_img" 
-                    style="width:64px;height:64px;flex-shrink: 0;" 
+                    style="width:64px;height:64px;flex-shrink: 0;background-size: cover;"
                     :style="'background-image:url('+item.logo+');'">
                 </div>
                 <div class="shop_right">

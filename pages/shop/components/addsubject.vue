@@ -14,22 +14,6 @@
                     />
                 </van-cell-group>
                 <div class="js-form-area">
-                    <span>课程开始时间</span>
-                    <van-button @click="startDateShow=true" type="primary">{{subjectItem.startDate?dateFormat(subjectItem.startDate,'YYYY-MM-DD'):'点击选择'}}</van-button>
-                </div>
-                <div class="js-form-area">
-                    <span>课程结束时间</span>
-                    <van-button @click="endDateShow=true" type="primary">{{subjectItem.endDate?dateFormat(subjectItem.endDate,'YYYY-MM-DD'):'点击选择'}}</van-button>
-                </div>
-                <div class="js-form-area">
-                    <span>上课时间</span>
-                    <van-button @click="startTimeShow=true" type="primary">{{subjectItem.startTime?subjectItem.startTime:'点击选择'}}</van-button>
-                </div>
-                <div class="js-form-area">
-                    <span>下课时间</span>
-                    <van-button @click="endTimeShow=true" type="primary">{{subjectItem.endTime?subjectItem.endTime:'点击选择'}}</van-button>
-                </div>
-                <div class="js-form-area">
                     <span>上课频率</span>
                     <van-button @click="rateShow=true" type="primary">{{subjectItem.rateType?subjectItem.rateTypeName+subjectItem.rateNumName:'点击选择'}}</van-button>
                 </div>
@@ -38,8 +22,8 @@
                             v-model="subjectItem.during"
                             required
                             clearable
-                            label="每节课时长"
-                            placeholder="请输入每节课时长"
+                            label="每次课时长"
+                            placeholder="请输入每次课时长"
                     >
                         <van-button class="price_slot_btn" disabled slot="button" size="small" type="primary">分钟</van-button>
                     </van-field>
@@ -104,44 +88,6 @@
                 <van-button @click="finishSubject" plain type="primary">确定</van-button>
             </div>
         </van-popup>
-        <!-- 开始日期 -->
-        <van-popup v-model="startDateShow" position="bottom" :overlay="true">
-            <van-datetime-picker
-                    @cancel="startDateShow=false"
-                    @confirm="startDateShow=false"
-                    v-model="subjectItem.startDate"
-                    type="date"
-                    :min-date="minDate"
-            />
-        </van-popup>
-        <!-- 结束日期 -->
-        <van-popup v-model="endDateShow" position="bottom" :overlay="true">
-            <van-datetime-picker
-                    @cancel="endDateShow=false"
-                    @confirm="endDateShow=false"
-                    v-model="subjectItem.endDate"
-                    type="date"
-                    :min-date="minDate"
-            />
-        </van-popup>
-        <!-- 开始时间 -->
-        <van-popup v-model="startTimeShow" position="bottom" :overlay="true">
-            <van-datetime-picker
-                    @cancel="startTimeShow=false"
-                    @confirm="startTimeShow=false"
-                    v-model="subjectItem.startTime"
-                    type="time"
-            />
-        </van-popup>
-        <!-- 结束时间 -->
-        <van-popup v-model="endTimeShow" position="bottom" :overlay="true">
-            <van-datetime-picker
-                    @cancel="endTimeShow=false"
-                    @confirm="endTimeShow=false"
-                    v-model="subjectItem.endTime"
-                    type="time"
-            />
-        </van-popup>
         <!-- 上课频率 -->
         <van-popup v-model="rateShow" position="bottom" :overlay="true">
             <van-picker :columns="columns"
@@ -174,11 +120,6 @@
         },
         data(){
             return {
-                minDate: new Date("2018-01-01"),
-                startDateShow:false,
-                endDateShow:false,
-                startTimeShow:false,
-                endTimeShow:false,
                 rateShow:false,
                 columns: [
                     {
@@ -194,10 +135,6 @@
                 advImgUrl:'',
                 subjectItem:{
                     name:null,
-                    startDate:null,
-                    endDate:null,
-                    startTime:null,
-                    endTime:null,
                     rateType:null,
                     rateTypeName:null,
                     rateNum:null,

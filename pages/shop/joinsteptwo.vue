@@ -59,10 +59,6 @@
                 currentSubjectIndex:-1,
                 subjectTemplate:{
                     name:null,
-                    startDate:null,
-                    endDate:null,
-                    startTime:null,
-                    endTime:null,
                     rateType:null,
                     rateTypeName:null,
                     rateNum:null,
@@ -126,23 +122,11 @@
                     if(!sitem.name || sitem.name==='未设置标题'){
                         this.$toast("课程标题输入有误");return
                     }
-                    if(!sitem.startDate){
-                        this.$toast("课程开始日期输入有误");return
-                    }
-                    if(!sitem.endDate){
-                        this.$toast("课程结束日期输入有误");return
-                    }
-                    if(!sitem.startTime){
-                        this.$toast("上课时间输入有误");return
-                    }
-                    if(!sitem.startTime){
-                        this.$toast("下课时间输入有误");return
-                    }
                     if(!sitem.rateType){
                         this.$toast("上课频率输入有误");return
                     }
                     if(!sitem.during){
-                        this.$toast("每节课时长输入有误");return
+                        this.$toast("每次课时长输入有误");return
                     }
                     if(!sitem.price){
                         this.$toast("价格输入有误");return

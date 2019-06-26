@@ -29,7 +29,7 @@
                             <p class="reply_detail_childage">{{replyDetail.childAge}}岁</p>
                             <p class="reply_detail_poster_desc_f">
                                 <span>梦想介绍</span>
-                                <span>{{replyDetail.merchantName}}</span>
+                                <span @click="$router.push({name:'activity-aid-merchant-mid',params:{aid:replyDetail.activityId,mid:replyDetail.merchantId}})">{{replyDetail.merchantName}}&nbsp;<i class="fa fa-angle-right" aria-hidden="true"></i></span>
                             </p>
                             <p class="reply_detail_poster_desc_t">
                                 <span>梦想课程</span>

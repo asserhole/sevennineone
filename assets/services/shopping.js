@@ -87,6 +87,15 @@ export const updateSubject = (params)=>{
   })
 }
 
+// 修改课程
+export const deleteSubject = (params)=>{
+  return request({
+    url: `${prefix}/deleteSubject`,
+    method: 'GET',
+    data: params,
+  })
+}
+
 // 保存详细地址
 export const updateAddressInfo = (params)=>{
   return request({

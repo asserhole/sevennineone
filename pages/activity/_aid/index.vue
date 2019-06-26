@@ -30,7 +30,7 @@
                         :style="'background-image:url('+item.logo+')'"></div>
                     <div class="item_text">
                         <div class="item_title">{{item.name}}<span>{{item.categoryName}}</span></div>
-                        <div class="item_des ellipsis2">“{{item.description}}”</div>
+                        <div class="item_des ellipsis2">“{{item.poster}}”</div>
                         <div class="item_bottom">
                             <div>报名人数 {{item.replyCount}}</div>
                             <p><span>热度</span>{{item.hotNum}}</p>

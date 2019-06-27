@@ -171,9 +171,7 @@
         <div>
             <DonateTabbar :aid="replyDetail.activityId" :payStatus="replyDetail.paidFee < replyDetail.totalFee"/>
         </div>
-        <div @click="shareOverlayShow=false" v-if="shareOverlayShow" class="share_overlay guide_wrap">
-
-        </div>
+        <div @click="shareOverlayShow=false" v-if="shareOverlayShow" class="share_overlay guide_wrap"></div>
     </div>
 
 </template>

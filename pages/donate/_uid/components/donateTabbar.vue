@@ -42,7 +42,7 @@
                     <!--:src="props.active ? icon.active : icon.normal"-->
             <!--&gt;-->
         </van-tabbar-item>
-        <van-tabbar-item @click.stop="sendGift" icon="freinds-o">圆梦助学</van-tabbar-item>
+        <button @click.stop="sendGift" class="finish_btn">圆梦助学</button>
         <van-tabbar-item @click="goPage(2)">
             <span>我的</span>
             <svg v-if="active==3" t="1558159473296" class="icon" style="" viewBox="0 0 1024 1024"
@@ -136,6 +136,17 @@
     .van-tabbar-item__text svg{
         height:24px;
         margin-bottom:1px;
+    }
+
+    .finish_btn {
+        width: 2rem;
+        margin: .1rem auto;
+        border: none;
+        background-color: #fc6b79;
+        color: white;
+        border-radius: .4rem;
+        height: .8rem;
+
     }
 </style>
 <style>

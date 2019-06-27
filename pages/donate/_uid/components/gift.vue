@@ -9,8 +9,8 @@
                 <van-swipe-item v-for="(item,index) in sliceGiftArr" :key="index">
                     <div @click="clickGift(i,index)" class="gift_item" v-for="(r,i) in item" :key="i">
                         <div :style="{backgroundImage: 'url(' + r.img + ')' }"></div>
-                        <p>{{r.name}}</p>
-                        <p><i class="fa fa-jpy" aria-hidden="true"></i>&nbsp;{{r.worth/100}}</p>
+                        <p class="gift_name">{{r.name}}</p>
+                        <p class="gift_price"><i>¥</i>{{r.worth/100}}</p>
                     </div>
                 </van-swipe-item>
             </van-swipe>
@@ -33,10 +33,10 @@
             }
         },
         methods:{
-            hideBar(){
+            hideBar() {
                 this.$store.commit('setGiftBarShowStatus',false)
             },
-            clickGift(i,index){  // 点击礼物
+            clickGift(i,index) {  // 点击礼物
                 this.$store.commit('setSkuShowStatus',true)
                 this.$emit('giftSend',this.sliceGiftArr[index][i])
             }
@@ -67,23 +67,40 @@
     .gift-overlay>p{
         padding:5px 20px;
         color:white;
-        border-bottom: 1px solid #ddd;
+        border-bottom: 1px solid rgba(255,255,255,.6);
     }
     .gift_item{
         display: flex;
         flex-direction: column;
+        padding: .31rem 0;
         align-items: center;
+        border-right: 1px solid rgba(255,255,255,.2);
+        border-bottom: 1px solid rgba(255,255,255,.2);
     }
-    .gift_item p{
-        color:white;
-        padding:3px;
+    .gift_item .gift_name{
+        color: #fff;
+        font-size: .24rem;
+        line-height: .31rem;
+        margin-top: .1rem;
+        margin-bottom: .04rem;
+    }
+    .gift_price {
+        color: #FFF;
+        font-size: .24rem;
+        line-height: .31rem;
+    }
+    .gift_price>i {
+        font-style: normal;
+        position: relative;
+        top: .01rem;
+        margin-right: .05rem;
     }
     .gift_item>div:first-child{
-        height: 40px;
-        width: 40px;
+        height: 1.08rem;
+        width: 1.08rem;
         background-repeat: no-repeat;
-        background-size: 100%;
-        display: inline-block;
+        background-size: contain;
+        background-position: center center;
     }
     .van-swipe-item{
         display: flex;
@@ -91,8 +108,7 @@
     }
     .van-swipe-item>div{
         width: 25%;
-        padding:2%;
-        margin-bottom: 10px;
+        margin-bottom: .55rem;
     }
 
 </style>

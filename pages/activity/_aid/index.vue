@@ -39,7 +39,7 @@
                 </div>
                 <div @click="merchantJoin" class="a-content-join">我是商家，我想出现在这里</div>
             </div>
-            <div class="c_title">趣学卡</div>
+            <div class="c_title">活动链接</div>
             <div class="qkx"></div>
         </div>
 

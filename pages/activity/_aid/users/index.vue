@@ -37,8 +37,17 @@
         </div>
 
         <van-cell style="margin-top:8px;" @click="merchantPage" title="商家中心" is-link />
+        <van-cell @click="wxToast=true" title="微信咨询" is-link />
+        <van-cell @click="phoneCall()" title="电话咨询" is-link />
 
         <ActivityTabbar :page="3" :aid="$route.params.aid"/>
+
+        <!-- 微信咨询 -->
+        <div class="wx_toast" v-if="wxToast">
+            <div class="qr_code"><img src="http://gaif.oss-cn-hangzhou.aliyuncs.com/dc/gift/qrcode.png" ></div>
+            <p>请长按上方二维码加客服咨询</p>
+            <div @click="wxToast=false" class="close_btn"></div>
+        </div>
     </div>
 
 </template>
@@ -54,7 +63,8 @@
         data(){
             return {
                 aid:this.$route.params.aid,
-                userinfo:{}
+                userinfo:{},
+                wxToast: false,
             }
         },
         methods:{
@@ -95,6 +105,9 @@
                 } else if (this.userinfo.merchant === 1) {
                     this.$router.push({name: 'business'})
                 }
+            },
+            phoneCall() {
+                window.location.href = 'tel://18682360850';
             }
         },
         mounted() {
@@ -141,6 +154,78 @@
     .uc-center-ul li svg{
         height:64px;
         width:64px;
+    }
+
+    .wx_toast {
+        background: #f5f5f5;
+        width: 100%;
+        height: 100%;
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 9;
+    }
+
+    .qr_code {
+        width: 4.4rem;
+        height: 5.86rem;
+        border: 1px solid #0a0a0a;
+        margin: 1.5rem auto 0;
+        box-shadow: 1px 0 3px 1px  #c7c7c7;
+    }
+
+    .qr_code>img {
+        width: 100%;
+        height: 100%;
+        display: block;
+    }
+
+    .wx_toast>p {
+        color: #171717;
+        font-size: .26rem;
+        text-align: center;
+        line-height: 1.2rem;
+    }
+
+    .close_btn {
+        width: .6rem;
+        height: .6rem;
+        border: .04rem solid #c3c3c3;
+        border-radius: 50%;
+        margin: 0 auto;
+        position: relative;
+    }
+
+    .close_btn:before {
+        content: '';
+        width: .04rem;
+        height: .3rem;
+        background: #c3c3c3;
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        margin: auto;
+        border-radius: .02rem;
+        transform: rotate(45deg);
+        transform-origin: center center;
+    }
+
+    .close_btn:after {
+        content: '';
+        width: .04rem;
+        height: .3rem;
+        background: #c3c3c3;
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        margin: auto;
+        border-radius: .02rem;
+        transform: rotate(-45deg);
+        transform-origin: center center;
     }
 </style>
 <style>

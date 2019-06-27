@@ -72,6 +72,11 @@
                     label="验证码"
                     placeholder="请输入手机验证码"
             />
+            <div class="reply_input_img" style="margin-bottom: 20px;">
+                <van-radio-group v-model="agree">
+                    <van-radio :name="true" style="margin-right:20px;" checked-color="#fc6b79">我已阅读并同意<span class="under">趣教育报名规则</span></van-radio>
+                </van-radio-group>
+            </div>
             <button :class="{'disable_btn':canSubmit}" :disabled="canSubmit" @click="saveReplyLocal" class="submit_btn">我要报名</button>
         </div>
 
@@ -96,6 +101,7 @@
         components: {Topback,MessageTop},
         data(){
             return {
+                agree: false,
                 step:-1, // 后退步数
                 replySubId:null, // 报名的id
                 childName:'', //学生姓名
@@ -183,6 +189,9 @@
                 }
             },
             async saveReplyLocal(){
+                if (!this.agree) {
+                   Toast({message:'请先阅读并同意趣教育报名规则',position:'middle',duration:3000});return 
+                }
                 if(this.replySubId===null){
                     Toast({message:'您选择您要报名的课程--',position:'bottom',duration:3000});return
                 }
@@ -325,6 +334,11 @@
 </script>
 
 <style scoped>
+    .under {
+        text-decoration: underline;
+        margin-left: .04rem;
+        color: #39c6a8;
+    }
     .reply_choose_subject_top{
         background-color: white;
         padding: 15px;

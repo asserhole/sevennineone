@@ -121,22 +121,43 @@
                 </div>
 
                 <div class="reply_detail_progress_warp">
-                    <!--<p class="a-merchant_content_hst">活动介绍</p>-->
-                    <!--<div>-->
-                        <!--{{replyDetail.description}}-->
-                    <!--</div>-->
-                    <img src="https://sevennineone.oss-cn-hangzhou.aliyuncs.com/default/c7a782b32edcf7d5c41f151fa3843f33.png" />
+                    <p class="a-merchant_content_hst">活动介绍</p>
+                    <div>
+                        {{replyDetail.description}}
+                    </div>
+                    <div class="d_title"><img src="http://gaif.oss-cn-hangzhou.aliyuncs.com/dc/gift/i1.png"></div>
+                    <div class="d_item">
+                        <img src="http://gaif.oss-cn-hangzhou.aliyuncs.com/dc/gift/p1.png">
+                        <p>价值199元学习桌椅</p>
+                    </div>
+                    <div class="d_item">
+                        <img src="http://gaif.oss-cn-hangzhou.aliyuncs.com/dc/gift/p2.png">
+                        <p>价值3600元趣学卡一张</p>
+                    </div>
+                    <div class="d_title"><img src="http://gaif.oss-cn-hangzhou.aliyuncs.com/dc/gift/i2.png"></div>
+                    <div class="d_shop_box">
+                        <div 
+                            class="d_shop_item"
+                            v-for="(item,index) in replyDetail.merchantList"
+                            :key="index"
+                            >
+                            <div 
+                                class="d_shop_img bg_img"
+                                :style="'background-image: url('+item.logo+');'"></div>
+                            <p class="ellipsis">{{item.name}}</p>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="reply_detail_progress_warp">
                     <p class="a-merchant_content_hst">助学记录</p>
                     <div class="reply_detail_order clearfix">
-                        <div v-if="total>0" :class="{'back_odd':index%2!==0}" v-for="(item,index) in giftRecordList"
+                        <div v-if="total>0" v-for="(item,index) in giftRecordList"
                              class="reply_detail_order_item">
                             <img :src="item.avatar"/>
-                            <div>
+                            <div class="bb give_right">
                                 <p class="reply_detail_gift_record">
-                                    <span class="pink" style="font-weight:bold;">{{item.nickname}}&nbsp;</span>
+                                    <span class="pink ellipsis give_name" style="font-weight:bold;">{{item.nickname}}&nbsp;</span>
                                     送给Ta
                                     <span class="pink">&nbsp;{{item.giftNum}}&nbsp;</span>
                                     个
@@ -439,6 +460,33 @@
 </script>
 
 <style scoped>
+    .bg_img {
+        background-repeat: no-repeat;
+        -webkit-background-size: cover;
+        background-size: cover;
+        background-position: center center;
+    }
+
+    .ellipsis {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .bb {
+      position: relative;
+    }
+
+    .bb:before {
+      content: '';
+      width: 100%;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      height: 1px;
+      background: #E7E7E7;
+      transform: scaleY(.5);
+    }
     .reply_detail_wrap {
         padding-bottom: 50px;
     }
@@ -676,10 +724,11 @@
     }
 
     .reply_detail_order_item img:first-child {
-        width: 40px;
-        height: 40px;
+        width: 50px;
+        height: 50px;
         margin-right: 10px;
         border-radius: 50%;
+        margin-top: -10px;
     }
     .reply_detail_gift_record{
         display: flex;
@@ -746,6 +795,92 @@
 
     .bold {
         font-weight: 600;
+    }
+
+    .d_title {
+        width: 3rem;
+        height: .54rem;
+        margin: 0 auto .4rem;
+    }
+
+    .d_title>img {
+        width: 100%;
+        height: 100%;
+    }
+
+    .d_item {
+        display: -webkit-flex;
+        display: -moz-flex;
+        display: -ms-flex;
+        display: -o-flex;
+        display: flex;
+        padding: 0 .6rem;
+        margin-bottom: .3rem;
+        align-items: center;
+    }
+
+    .d_item>img {
+        width: 2rem;
+        height: 1.26rem;
+        border-radius: .1rem;
+    }
+
+    .d_item>p {
+        padding-left: .4rem;
+        flex: 1;
+        font-size: .32rem;
+        line-height: .42rem;
+        color: #333;
+    }
+
+    .d_shop_box {
+        width: 6.8rem;
+        height: 4.58rem;
+        border: .11rem solid #F9D37E;
+        border-radius: .4rem;
+        margin: 0 auto;
+        padding: .29rem;
+        display: -webkit-flex;
+        display: -moz-flex;
+        display: -ms-flex;
+        display: -o-flex;
+        display: flex;
+        flex-wrap: wrap;
+        align-content: flex-start;
+    }
+
+    .d_shop_item {
+        flex-shrink: 0;
+        margin-right: .3rem;
+    }
+
+    .d_shop_box>.d_shop_item:nth-child(3n) {
+        margin-right: 0;
+    }
+
+    .d_shop_img {
+        width: 1.8rem;
+        height: 1.2rem;
+        border-radius: .08rem;
+    }
+
+    .d_shop_item>p {
+        font-size: .28rem;
+        color: #333;
+        line-height: .37rem;
+        margin-top: .12rem;
+        margin-bottom: .4rem;
+    }
+
+    .give_name {
+        display: inline-block;
+        max-width: 1.8rem;
+    }
+
+    .give_right {
+        padding-bottom: .39rem;
+        padding-top: .2rem;
+        flex: 1;
     }
 </style>
 <style>

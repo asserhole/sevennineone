@@ -1,8 +1,8 @@
 <template>
     <van-tabbar
-            v-model="active"
-            active-color="#fc6b79"
-            inactive-color="#000"
+        v-model="active"
+        active-color="#000"
+        inactive-color="#000"
     >
         <van-tabbar-item :to="{name: 'activity-aid', params: {aid: this.aid}}">
             <span>首页</span>
@@ -146,7 +146,6 @@
         color: white;
         border-radius: .4rem;
         height: .8rem;
-
     }
 </style>
 <style>

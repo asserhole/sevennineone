@@ -3,7 +3,7 @@
         <div class="a-merchant_bg clearfix">
             <div class="a-merchant_banner" :style="'background-image:url('+merchant.banner+');'">
                 <span @click="$router.push({name:'activity-aid-merchant-mid-image',params:{aid:aid,mid:mid}})" class="a-merchant_more">
-                    查看图集&nbsp;>
+                    商家相册&nbsp;>
                 </span>
             </div>
 
@@ -34,7 +34,7 @@
 
                 <!--<p class="a-merchant_content_replycount">{{merchant.replyCount}}</p>-->
                 <p class="a-merchant_content_info">
-                    <i class="fa fa-tag" aria-hidden="true"></i>&nbsp;联盟卡可体验任意课程{{merchant.experienceNum}}次
+                    <i class="fa fa-tag" aria-hidden="true"></i>&nbsp;持趣学卡可体验任意课程{{merchant.experienceNum}}次
                 </p>
                 <div class="a-merchant-map">
                     <p class="a-merchant_content_map" @click="gotoMapPage">

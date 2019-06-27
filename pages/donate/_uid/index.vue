@@ -5,9 +5,9 @@
                 <div class="reply_detail_title clearfix">
                     <span class="pull-left reply_detail_title_logo">
                     </span>
-                    <span @click="$router.push({name:'index'})" class="pull-left reply_detail_title_name">趣教育</span>
+                    <span @click="$router.push({name:'index'})" class="pull-left reply_detail_title_name">趣教育<b>791.cn</b></span>
                     <span class="pull-right reply_detail_title_btn">
-                        <button @click="goReplyPage">为萌娃报名</button>
+                        <button @click="goReplyPage">为学子报名</button>
                     </span>
                 </div>
 
@@ -108,10 +108,11 @@
                     </div>
                     <div class="reply_progress_detail">
                         <p v-if="replyDetail.paidFee < replyDetail.totalFee">
-                            课程学费
+                            我是{{replyDetail.childName}}，我的梦想课程需要学费
                             <span class="reply_progress_detail_imp">{{replyDetail.totalFee/100}}</span>
-                            元,当前已交
-                            <span class="reply_progress_detail_imp">{{replyDetail.paidFee/100}}</span>元,离梦想仅一步之遥!
+                            元，已完成
+                            <span class="reply_progress_detail_imp">{{replyDetail.paidFee/100}}</span>
+                            元，请支持我一下吧！
                         </p>
                         <p v-if="replyDetail.paidFee == replyDetail.totalFee">
                             您已成功报名入学.
@@ -170,9 +171,7 @@
         <div>
             <DonateTabbar :aid="replyDetail.activityId" :payStatus="replyDetail.paidFee < replyDetail.totalFee"/>
         </div>
-        <div @click="shareOverlayShow=false" v-if="shareOverlayShow" class="share_overlay guide_wrap">
-
-        </div>
+        <div @click="shareOverlayShow=false" v-if="shareOverlayShow" class="share_overlay guide_wrap"></div>
     </div>
 
 </template>
@@ -466,6 +465,12 @@
         font-weight: 600;
         font-size: 20px;
         color: #2cbe4e;
+    }
+
+    .reply_detail_title_name>b {
+        font-size: 15px;
+        color: #000;
+        margin-left: 9px;
     }
 
     .reply_detail_title_btn {

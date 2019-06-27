@@ -122,8 +122,8 @@
 
                 <div class="reply_detail_progress_warp">
                     <p class="a-merchant_content_hst">活动介绍</p>
-                    <div>
-                        {{replyDetail.description}}
+                    <div class="description_text">
+                        {{replyDetail.activityDescription}}
                     </div>
                     <div class="d_title"><img src="http://gaif.oss-cn-hangzhou.aliyuncs.com/dc/gift/i1.png"></div>
                     <div class="d_item">
@@ -460,6 +460,15 @@
 </script>
 
 <style scoped>
+    .description_text {
+        text-indent: 2em;
+        color: #636A7C;
+        font-size: .28rem;
+        line-height: .46rem;
+        padding: 0 .3rem;
+        margin-bottom: .6rem;
+    }
+
     .bg_img {
         background-repeat: no-repeat;
         -webkit-background-size: cover;

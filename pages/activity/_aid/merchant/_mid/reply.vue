@@ -9,7 +9,7 @@
                         <div class="reply_choose_subject_input_img" :style="'background-image:url('+r.adv_img+');'"></div>
                         <div class="reply_choose_subject_input_info">
                             <span class="bold">{{r.name}}</span>
-                            <span class="pink">{{r.price/100}}元/学期</span>
+                            <span class="pink">{{r.price/100}}元/课程</span>
                             <span class="gray">招生：{{r.real_students}}/{{r.max_students}}人&nbsp;{{r.real_students>=r.max_students?'已满人':''}}</span>
                         </div>
                     </div>

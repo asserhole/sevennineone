@@ -39,8 +39,10 @@
                 </div>
                 <div @click="merchantJoin" class="a-content-join">我是商家，我想出现在这里</div>
             </div>
-            <div class="c_title">活动链接</div>
-            <div class="qkx"></div>
+            <div v-if="activityPO.linkList.length > 0">
+                <div class="c_title">活动链接</div>
+                <div @click="$router.push({path:r.link})" v-for="r in activityPO.linkList" :style="'background-image:url('+r.img+');'" class="qkx"></div>
+            </div>
         </div>
 
         <ActivityTabbar :page="0" :aid="$route.params.aid"/>
@@ -86,6 +88,7 @@
                 </div>
             </div>
         </div>
+        <p style="color:#999;margin-top:20px;text-align: center">趣教育——全民助学，圆孩子一个学习梦</p>
     </div>
 </template>
 
@@ -220,7 +223,9 @@
             ActivityTabbar,TimeDown,ActivityMerchant
         },
         mounted() {
+            console.log(this.activityPO)
             var that = this;
+            document.title=this.activityPO.name
             that.sParams.aid = that.$route.params.aid;
             wxJssdkInit(window.location.href,
                 [
@@ -252,7 +257,7 @@
 
 <style scoped>
     #activityIndex {
-        padding-bottom: 1.8rem;
+        padding-bottom: 1.2rem;
         background: #fff;
     }
     .a-head{
@@ -494,6 +499,8 @@
         width: 2.1rem;
         height: 1.64rem;
         border-radius: .08rem;
+        background-size: contain;
+        background-repeat: no-repeat;
     }
 
     .item_text {
@@ -584,11 +591,12 @@
 
     .qkx {
         height: 3rem;
-        background: url(http://gaif.oss-cn-hangzhou.aliyuncs.com/dc/dmm/qxk.png);
+        /*background: url(http://gaif.oss-cn-hangzhou.aliyuncs.com/dc/dmm/qxk.png);*/
         -webkit-background-size: cover;
         background-size: cover;
         width: 6.9rem;
         margin: 0 auto;
+        margin-bottom:10px;
     }
 
     .search_toast {

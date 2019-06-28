@@ -32,8 +32,8 @@
                             v-model="subjectItem.total"
                             required
                             clearable
-                            label="总节数"
-                            placeholder="请输入课程总节数"
+                            label="总次数"
+                            placeholder="请输入课程总次数"
                     />
                     <van-field
                             v-model="subjectItem.price"
@@ -43,28 +43,28 @@
                             :disabled="modifyMode"
                             placeholder="请输入价格，不支持小数"
                     >
-                        <van-button class="price_slot_btn" disabled slot="button" size="small" type="primary">元/学期</van-button>
+                        <van-button class="price_slot_btn" disabled slot="button" size="small" type="primary">元/课程</van-button>
                     </van-field>
                     <van-field
                             v-model="subjectItem.maxStudents"
                             required
                             clearable
-                            label="每班最多人数"
-                            placeholder="请输入每班最多人数"
+                            label="招生人数"
+                            placeholder="请输入计划招生人数"
                     />
                     <van-field
                             v-model="subjectItem.realStudents"
                             required
                             clearable
-                            label="已有人数"
-                            placeholder="请输入已有人数"
+                            label="已报名人数"
+                            placeholder="请输入已报名人数"
                     />
                     <van-field
                             v-model="subjectItem.suitableAge"
                             required
                             clearable
                             label="适合年龄段"
-                            placeholder="请输入适合年龄段"
+                            placeholder="请输入适合年龄段，如：3-10"
                     >
                         <van-button class="price_slot_btn" disabled slot="button" size="small" type="primary">岁</van-button>
                     </van-field>
@@ -80,6 +80,7 @@
                         <span>课程宣传图片</span>
                         <div class="js-form-area_img">
                             <van-button @click="chooseLogoImg" type="primary">点击选择</van-button>
+                            <p style="color:#999;">建议尺寸：600x260像素</p>
                             <img v-show="subjectItem.advImg" :src="advImgUrl" />
                         </div>
                     </div>
@@ -267,7 +268,6 @@
         watch:{
             subjectIndex(newValue,oldValue){
                 console.log('newVa:'+newValue)
-                debugger
                 this.subjectItem = Object.assign({},this.subjectList[newValue])
                 this.advImgUrl = this.subjectItem.advImg
                 this.subjectItem.rateTypeName = getRateTypeName(this.subjectItem.rateType)

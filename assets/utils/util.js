@@ -35,25 +35,25 @@ export const getRate = (rateType, rateNum) => {
     let result = '';
     switch (rateType) {
         case 1:
-            result = '每天' + rateNum + '节';
+            result = '每天' + rateNum + '次';
             break;
         case 2:
-            result = '每周' + rateNum + '节';
+            result = '每周' + rateNum + '次';
             break;
         case 3:
-            result = '每月' + rateNum + '节';
+            result = '每月' + rateNum + '次';
             break;
         case 4:
-            result = '每季' + rateNum + '节';
+            result = '每季' + rateNum + '次';
             break;
         case 5:
-            result = '每半年' + rateNum + '节';
+            result = '每半年' + rateNum + '次';
             break;
         case 6:
-            result = '每年' + rateNum + '节';
+            result = '每年' + rateNum + '次';
             break;
         case 7:
-            result = '每三年' + rateNum + '节';
+            result = '每三年' + rateNum + '次';
             break;
     }
     return result;

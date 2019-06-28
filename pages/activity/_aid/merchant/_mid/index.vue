@@ -63,7 +63,7 @@
                         <span class="amc-suitem_info_title">{{item.name}}</span>
                         <span class="amc-suitem_info_price">
                             <span>{{item.price/100}}</span>
-                            <span>元/学期</span>
+                            <span>元/课程</span>
                         </span>
                     </div>
                     <div class="a-merchant-content-suitem_desc">
@@ -99,8 +99,6 @@
 
             <div class="a-merchant_content_sub clearfix">
                 <p class="a-merchant_content_hst">商家介绍</p>
-                <div class="a-merchant-content-suitem pbval">
-                    <p style="color:#666;font-size:13px;">{{merchant.description}}</p>
                 <div class="a-merchant-content-suitem">
                     <p style="color:#666;font-size:13px;margin-bottom:10px;text-indent: 2em">{{merchant.description}}</p>
                     <van-image
@@ -130,7 +128,6 @@
                 </div>
             </div>
         </mt-popup>
-
     </div>
 </template>
 
@@ -250,6 +247,8 @@
             console.log(this.replyHistoryTotal)
 
             this.page_init()
+
+            document.title = this.merchant.name
 
             var that = this
             wxJssdkInit(window.location.href,
@@ -537,10 +536,6 @@
     }
     .a-merchant-reply-list_item .mt-progress>div:last-child{
         padding-left: 10px;
-    }
-
-    .pbval {
-        padding-bottom: .7rem;
     }
 </style>
 <style>

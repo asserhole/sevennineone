@@ -81,3 +81,12 @@ export const search = (params)=>{
         data: params,
     })
 }
+
+// 我发布的活动
+export const listMyActivity = (params)=>{
+    return request({
+        url: `${prefix}/listMyActivity`,
+        method: 'GET',
+        data: params,
+    })
+}

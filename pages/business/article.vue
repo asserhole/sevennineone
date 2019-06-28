@@ -14,10 +14,12 @@
                 :finished="finished"
                 finished-text="没有更多了"
                 @load="onLoad"
+
         >
-            <div v-for="item in articleList">
-                {{item.title}}
-            </div>
+            <van-cell @click="$router.push({name:'business-articlepre',query:{artid:item.id}})"
+                      :label="'链接：/activity/article/'+item.id"
+                    v-for="item in articleList" :title="item.title" is-link />
+
         </van-list>
 
     </div>
@@ -44,11 +46,15 @@
                     current:this.current,
                     rowCount:this.rowCount
                 })
-                this.articleList = res.data.list
+                this.loading = false
+                this.articleList = this.articleList.concat(res.data.list)
                 this.total = res.data.total
             },
             onLoad(){
-
+                if(!this.finished){
+                    this.current +=1
+                    this.listMyArticle()
+                }
             }
         },
         mounted(){
@@ -73,5 +79,6 @@
         color:#666;
         background-color: white;
         height:35px;
+        margin-bottom:10px;
     }
 </style>

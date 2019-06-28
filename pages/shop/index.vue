@@ -63,15 +63,16 @@
   @import "../../assets/styles/mixin";
 
   .shop-page {
-    font-size: px2rem(24px);
+    font-size: .24rem;
 
     .mint-navbar {
       position: sticky;
       top: 0;
       z-index: 20;
+      padding-bottom: .2rem;
 
       .mint-tab-item-label {
-        font-size: px2rem(30px);
+        font-size: .3rem;
       }
 
       .mint-tab-item {

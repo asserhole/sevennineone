@@ -1,8 +1,8 @@
 <template>
     <div class="shop-header">
-        <topback/>
+        <!-- <topback/> -->
         <div class="head" :style="`background-image: url('${banner}');`">
-            <div class="shop-logo" :style="`background-image: url('${seller.logo}');`">
+            <div class="shop-logo" :style="`background-image: url(${seller.logo});`">
             </div>
 
             <!--<img-->
@@ -18,8 +18,8 @@
         <div class="foot">
             <p>
                 <mt-badge
-                        size="small"
-                        color="rgb(240, 115, 115)">免费试课
+                    size="small"
+                    color="rgb(240, 115, 115)">免费试课
                 </mt-badge>
                 最近试课日期：3天后（2019-05-09 06:00）
             </p>
@@ -53,7 +53,7 @@
 
     .shop-header {
         background: #fff;
-
+        padding-bottom: .2rem;
         .head {
             height: 190px;
             background-position: 50%;
@@ -67,6 +67,9 @@
                 position: absolute;
                 bottom: -32px;
                 background-color: white;
+                background-size: contain;
+                background-position: center center;
+                background-repeat: no-repeat;
                 left: 50%;
                 transform: translateX(-50%);
             }
@@ -74,27 +77,27 @@
 
 
         .content {
-            font-size: px2rem(24px);
+            font-size: .24rem;
             margin-top:40px;;
             text-align: center;
 
             h2 {
-                font-size: px2rem(40px);
+                font-size: .4rem;
             }
 
             .info {
                 color: #666;
 
                 span {
-                    margin: 0 px2rem(10px);
+                    margin: 0 .1rem;
                 }
             }
         }
 
         .foot {
-            padding: 0 px2rem(70px);
+            padding: 0 .7rem;
             margin-top: 10px;
-            font-size: px2rem(24px);
+            font-size: .24rem;
 
             .mint-badge {
                 transform: scale(0.8) translateX(-10%);

@@ -32,36 +32,36 @@
 
   .seller-page {
     background: #fff;
-    padding-bottom: px2rem(30px);
+    padding-bottom: .3rem;
 
     .logo {
-      padding: px2rem(30px) px2rem(30px) 0 px2rem(30px);
+      padding: .3rem .3rem 0 .3rem;
     }
 
     h2 {
-      font-size: px2rem(32px);
-      margin-top: px2rem(40px);
-      padding: 0 px2rem(30px) px2rem(20px) px2rem(30px);
+      font-size: .32rem;
+      margin-top: .4rem;
+      padding: 0 .3rem .2rem .3rem;
     }
 
     p {
-      padding: 0 px2rem(30px);
+      padding: 0 .3rem;
       color: #666;
-      font-size: px2rem(26px);
+      font-size: .26rem;
       line-height: 1.5;
     }
 
     .brandstory {
       display: block;
-      line-height: px2rem(100px);
-      margin-top: px2rem(50px);
+      line-height: 1rem;
+      margin-top: .5rem;
       color: #666;
-      font-size: px2rem(28px);
+      font-size: .28rem;
       text-align: center;
     }
 
     .placeholder {
-      height: px2rem(20px);
+      height: .2rem;
       background: #f5f5f5;
     }
   }

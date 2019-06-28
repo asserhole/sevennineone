@@ -102,7 +102,7 @@
             <div class="a-merchant_content_sub clearfix">
                 <p class="a-merchant_content_hst">商家介绍</p>
                 <div class="a-merchant-content-suitem">
-                    <p v-html="merchant.description" style="color:#666;font-size:13px;margin-bottom:10px;text-indent: 2em"></p>
+                    <p v-html="merchant.description" style="color:#666;line-height:1.6;font-size:13px;margin-bottom:10px;"></p>
                     <van-image
                             v-for="r in merchant.imgList"
                             lazy-load

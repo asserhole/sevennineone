@@ -6,7 +6,7 @@
         alt="">
     </div>
     <h2>{{ seller.name }}</h2>
-    <p>{{ seller.description }}</p>
+    <p v-html="seller.description"></p>
   </div>
 </template>
 

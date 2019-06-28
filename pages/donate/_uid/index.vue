@@ -82,6 +82,13 @@
                                    aria-hidden="true"></i>
                                 <span>梦想成真&nbsp;<br />免费入学&nbsp;</span>
                             </p>
+
+                            <p :class="{'finish_step':currStep>=4}">
+                                <i class="fa" :class="{'fa-circle':currStep>=4,'fa-circle-o':currStep<4}"
+
+                                   aria-hidden="true"></i>
+                                <span>进度99颗爱心&nbsp;<br />获得趣学大礼包&nbsp;</span>
+                            </p>
                             
                         </div>
                         <no-ssr placeholder="Loading...">
@@ -111,8 +118,7 @@
                             <p :class="{'finish_step':currStep>=2}">
                                 <i class="fa" :class="{'fa-circle':currStep>=2,'fa-circle-o':currStep<2}"
                                    aria-hidden="true">&nbsp;</i>
-                                <span>进度19颗爱心,获得趣学卡</span>
-                                <!-- <i class="fa fa-question-circle" @click="recommend(1)" aria-hidden="true"></i> -->
+                                <span>进度19颗爱心, 获得趣学卡 <i class="fa fa-question-circle" @click="recommend(1)" aria-hidden="true"></i></span>
                             </p>
                         </div>
                     </div>
@@ -273,7 +279,7 @@
             recommend(type) { // 介绍 1联盟卡2可支付剩余学费
                 if (type === 1) {
                     this.$dialog.alert({
-                        message: '联盟卡可体验本活动所有商家的指定课程，可直接购买或助学金达到99元后自动获得'
+                        message: '趣学卡可体验本活动所有商家的指定课程，可直接购买或助学金达到99元后自动获得'
                     })
                 }
                 if (type === 2) {

@@ -11,8 +11,9 @@
                                 v-for="(item, index) in goods"
                                 :key="index"
                                 class="food-item border-1px">
-                            <div class="icon">
-                                <img :src="item.adv_img">
+                            <div 
+                                class="icon"
+                                :style="'background-image: url('+item.adv_img+');'">
                             </div>
                             <div class="content">
                                 <h2 class="name">{{ item.name }}</h2>
@@ -195,8 +196,11 @@
                 }
 
                 .icon {
-                    flex: 0 0 80px;
                     margin-right: 10px;
+                    width: 80px;
+                    height: 54px;
+                    background-size: cover;
+                    background-position: center center;
                 }
 
                 .content {
@@ -234,10 +238,11 @@
                         }
 
                         .now {
-                            margin-right: 8px;
                             font-size: 20px;
                             color: #ff5339;
                             float: right;
+                            position: relative;
+                            top: -39px;
                         }
                     }
 

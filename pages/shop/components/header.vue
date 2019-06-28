@@ -19,9 +19,7 @@
             <p>
                 <mt-badge
                     size="small"
-                    color="rgb(240, 115, 115)">免费试课
-                </mt-badge>
-                最近试课日期：3天后（2019-05-09 06:00）
+                    color="rgb(240, 115, 115)">免费试课</mt-badge>最近试课日期：3天后（2019-05-09 06:00）
             </p>
             <span class="announcement">公告：免费试课为2次，谢谢！我们将竭诚为您服务！</span>
         </div>

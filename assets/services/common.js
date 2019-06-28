@@ -28,4 +28,29 @@ export const listGift = (params)=>{
     })
 }
 
-//
+// 发表文章
+export const saveArticle = (params)=>{
+    return request({
+        url: `/snoArticle/save`,
+        method: 'POST',
+        data: params,
+    })
+}
+
+// 文章详情
+export const getArticleDetail = (params)=>{
+    return request({
+        url: `/snoArticle/detail`,
+        method: 'GET',
+        data: params,
+    })
+}
+
+//我的文章列表
+export const listMyArticle = (params)=>{
+    return request({
+        url: `/snoArticle/listMyArticle`,
+        method: 'GET',
+        data: params,
+    })
+}

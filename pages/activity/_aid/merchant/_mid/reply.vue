@@ -275,30 +275,20 @@
             // 发送验证码
             async sendReplySms(){
                 //手机号正则
-                let phoneReg = /(^1[3|4|5|7|8]\d{9}$)|(^09\d{8}$)/;
-                //电话
-                if (!phoneReg.test(this.userinfo.mobile)) {
-                    this.$toast({
-                        message: '请输入正确的手机号',
-                        duration: 1500
+                let res = await sendReplySms({
+                    mobile:this.userinfo.mobile
+                })
+                if(res.data > 0){
+                    this.$notify({
+                        message: '发送成功',
+                        background: '#fc6b79'
                     })
-                    return
+                    this.smsId = res.data
                 }else{
-                    let res = await sendReplySms({
-                        mobile:this.userinfo.mobile
+                    this.$toast.fail({
+                        message: '发送短信失败',
+                        duration: 2000
                     })
-                    if(res.data > 0){
-                        this.$notify({
-                            message: '发送成功',
-                            background: '#fc6b79'
-                        })
-                        this.smsId = res.data
-                    }else{
-                        this.$toast.fail({
-                            message: '发送短信失败',
-                            duration: 2000
-                        })
-                    }
                 }
 
             }

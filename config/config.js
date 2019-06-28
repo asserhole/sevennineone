@@ -7,7 +7,7 @@ export default {
 
     BASE_URL: 'http://127.0.0.1:3000/api', // 测试
 
-    // BASE_URL: 'http://www.djtp.com/api', // 生产
+    // BASE_URL: 'https://www.djtp.com/api', // 生产
 
     // IMG_URL: 'http://localhost:9000/', // 测试
 

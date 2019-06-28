@@ -61,6 +61,7 @@ export default {
     { src: '~plugins/vant'},
     { src: '~plugins/route', ssr: false},
     { src: '~plugins/wechat',ssr:false},
+    { src: '~plugins/quill',ssr:false}
   ],
 
   /*
@@ -74,7 +75,7 @@ export default {
 
   proxy:{
     '/api': {
-      target: 'http://www.djtp.com/api',
+      target: 'http://localhost:8911',
       pathRewrite: {
         '^/api' : '/'
       }

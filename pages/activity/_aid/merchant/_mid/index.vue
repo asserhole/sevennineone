@@ -99,7 +99,7 @@
 
             <div class="a-merchant_content_sub clearfix">
                 <p class="a-merchant_content_hst">商家介绍</p>
-                <div class="a-merchant-content-suitem">
+                <div class="a-merchant-content-suitem pbval">
                     <p style="color:#666;font-size:13px;">{{merchant.description}}</p>
                 </div>
 
@@ -530,6 +530,10 @@
     }
     .a-merchant-reply-list_item .mt-progress>div:last-child{
         padding-left: 10px;
+    }
+
+    .pbval {
+        padding-bottom: .7rem;
     }
 </style>
 <style>

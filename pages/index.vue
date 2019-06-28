@@ -17,12 +17,13 @@
             </div>
         </nav>
         <div class="show-list">
-            <a @click="$router.push({name:'activity-aid',params:{aid:1}})">
+            <!--@click="$router.push({name:'activity-aid',params:{aid:1}})"-->
+            <a>
                 <img
                         :src="show1"
                         alt="">
             </a>
-            <a @click="$router.push({name:'activity-aid',params:{aid:2}})">
+            <a>
                 <img
                         :src="show2"
                         alt="">

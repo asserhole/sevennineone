@@ -93,7 +93,7 @@
                             >
                         <span class="progress_center">
                             <p><i class="fa fa-jpy" aria-hidden="true"></i>{{replyDetail.paidFee/100}}</p>
-                            <p>已交</p>
+                            <p>已完成</p>
                         </span>
                                 <span class="progress_center">
                             <p><i class="fa fa-jpy" aria-hidden="true"></i>{{(replyDetail.totalFee - replyDetail.paidFee)/100}}</p>
@@ -134,7 +134,9 @@
                             <span class="reply_progress_detail_imp">{{replyDetail.totalFee/100}}</span>
                             元，已完成
                             <span class="reply_progress_detail_imp">{{replyDetail.paidFee/100}}</span>
-                            元，请支持我一下吧！
+                            元，还差
+                            <span class="reply_progress_detail_imp">{{replyDetail.totalFee/100 - replyDetail.paidFee/100}}</span>
+                            元，请支持一下我的梦想吧！
                         </p>
                         <p v-if="replyDetail.paidFee == replyDetail.totalFee">
                             您已成功报名入学.
@@ -401,6 +403,7 @@
             // }
         },
         mounted() {
+            document.title = this.replyDetail.childName
             console.log(this.replyDetail)
             console.log(this.giftRecordList)
             // this.initEchart()

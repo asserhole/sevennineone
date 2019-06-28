@@ -20,5 +20,14 @@
 </script>
 
 <style scoped>
-
+    .article-com{
+        background-color: white;
+        padding:15px;
+    }
+    .article-com>h2{
+        font-size:18px;
+        font-weight:bold;
+        text-align: center;
+        margin-bottom:5px;
+    }
 </style>

@@ -26,6 +26,15 @@
                     </div>
                     <i class="fa fa-angle-right" aria-hidden="true"></i>
                 </li>
+                <li class="user-func-li" @click="addActivity">
+                    <div class="user-func_menu_svg1">
+                        <svg t="1561647654507" class="icon" viewBox="0 0 1037 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1973" width="64" height="64"><path d="M146.526774 102.974561a30.723356 30.723356 0 0 1 13.842392 3.376192l742.762451 373.744561a29.372879 29.372879 0 0 1 0 53.00623l-742.762451 373.74456a30.723356 30.723356 0 0 1-13.842392 3.376193 30.048117 30.048117 0 0 1-30.385736-29.710498l61.784331-370.030748L116.478657 132.685059a30.048117 30.048117 0 0 1 30.385737-29.710498m0-101.285789a135.047718 135.047718 0 0 0-135.047719 132.684383 101.285789 101.285789 0 0 0 0 16.205726l59.083377 361.252647L12.491914 863.293215a101.285789 101.285789 0 0 0 0 16.543346 135.047718 135.047718 0 0 0 135.047718 132.684383 138.423911 138.423911 0 0 0 61.784332-14.855249l742.762451-373.744561a131.333906 131.333906 0 0 0 0-236.333507L208.648725 14.518305a138.423911 138.423911 0 0 0-62.121951-14.51763z" fill="#fc6b79" p-id="1974"></path><path d="M886.250652 548.969651H342.008347a50.642894 50.642894 0 1 1 0-101.285789h544.242305a50.642894 50.642894 0 0 1 0 101.285789z" fill="#fc6b79" p-id="1975"></path></svg>
+                    </div>
+                    <div>
+                        <span>发布活动</span>
+                    </div>
+                    <i class="fa fa-angle-right" aria-hidden="true"></i>
+                </li>
             </ul>
         </div>
         <div class="user-adv"></div>
@@ -90,6 +99,10 @@
             // 绑定手机号页面
             goBindPhonePage(){
                 this.$router.push({name:'user-bindphone'})
+            },
+            // 发布活动
+            addActivity(){
+                this.$router.push({name:'activity-add'})
             }
         },
         mounted() {
@@ -107,7 +120,7 @@
     .user-head{
         width:100%;
         background:linear-gradient(135deg,rgba(47,181,228,1) 0%,rgba(123,96,239,1) 100%);
-        height:160px;
+        height:206px;
         padding-top:50px;
     }
     .user-func{
@@ -150,5 +163,9 @@
     }
     .user-func-li i{
         margin-left: auto;
+    }
+    .user-func_menu_svg1>svg{
+        width: .42rem;
+        height: .34rem;
     }
 </style>

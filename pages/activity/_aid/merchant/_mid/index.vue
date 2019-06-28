@@ -63,7 +63,7 @@
                         <span class="amc-suitem_info_title">{{item.name}}</span>
                         <span class="amc-suitem_info_price">
                             <span>{{item.price/100}}</span>
-                            <span>元/学期</span>
+                            <span>元/课程</span>
                         </span>
                     </div>
                     <div class="a-merchant-content-suitem_desc">
@@ -128,7 +128,6 @@
                 </div>
             </div>
         </mt-popup>
-
     </div>
 </template>
 
@@ -248,6 +247,8 @@
             console.log(this.replyHistoryTotal)
 
             this.page_init()
+
+            document.title = this.merchant.name
 
             var that = this
             wxJssdkInit(window.location.href,

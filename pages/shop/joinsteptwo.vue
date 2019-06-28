@@ -132,10 +132,10 @@
                         this.$toast("价格输入有误");return
                     }
                     if(!sitem.total){
-                        this.$toast("总节数输入有误");return
+                        this.$toast("总次数输入有误");return
                     }
                     if(!sitem.maxStudents){
-                        this.$toast("每班最大学生数输入有误");return
+                        this.$toast("招生人数输入有误");return
                     }
                     if(!sitem.suitableAge){
                         this.$toast("适合年龄段输入有误");return

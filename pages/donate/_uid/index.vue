@@ -900,6 +900,8 @@
         width: 1.8rem;
         height: 1.2rem;
         border-radius: .08rem;
+        -webkit-background-size: contain!important;
+        background-size: contain!important;
     }
 
     .d_shop_item>p {
@@ -908,6 +910,7 @@
         line-height: .37rem;
         margin-top: .12rem;
         margin-bottom: .4rem;
+        text-align: center;
     }
 
     .give_name {

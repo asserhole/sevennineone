@@ -1,10 +1,8 @@
 <template>
     <div id="user">
-        <div class="user-head">
-            <div>
-                <img class="img-circle" :src="userinfo.avatar" />
-                <h2>{{userinfo.nickname}}</h2>
-            </div>
+        <div class="uc-head">
+            <img :src="userinfo.avatar" />
+            <h2>{{userinfo.nickname}}</h2>
         </div>
         <div class="user-func clearfix">
             <ul>
@@ -117,26 +115,26 @@
 </script>
 
 <style scoped>
-    .user-head{
-        width:100%;
+    .uc-head{
+        height:3.2rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding-top:.4rem;
         background:linear-gradient(135deg,rgba(47,181,228,1) 0%,rgba(123,96,239,1) 100%);
-        height:206px;
-        padding-top:50px;
     }
-    .user-func{
-
-    }
-    .user-head>div{
-        text-align: center;
-    }
-    .user-head>div img{
-        margin:0 auto;
+    .uc-head img{
+        height:1.16rem;
+        width:1.16rem;
         border-radius:50%;
-        width:90px;
+        border:.03rem solid rgba(255,255,255,.2);
     }
-    .user-head>div h2{
-        font-weight: 800;
-        font-size:20px;
+    .uc-head h2{
+        font-weight: 100;
+        font-size: .32rem;
+        color: #fff;
+        line-height: .42rem;
+        margin-top: .2rem;
     }
     .user-func_menu_svg{
         margin-right:12px;

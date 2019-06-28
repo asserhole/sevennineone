@@ -175,7 +175,10 @@
         height: 1.2rem;
         border-radius: .12rem;
         margin: 0 auto;
-        background-color: #DC5F22;
+        background-color: #fff;
+        -webkit-background-size: contain;
+        background-size: contain;
+        box-shadow: 2px 2px 2px 0 rgba(0,0,0,.2);
     }
 
     .st_name {

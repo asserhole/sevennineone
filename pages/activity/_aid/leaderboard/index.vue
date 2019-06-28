@@ -4,34 +4,40 @@
             class="banner_box bg_img"
             :style="'background-image: url('+boardList[0].banner+');'">商家热度排行榜</div>
         <div class="stage_box">
-            <!-- 第一名 -->
-            <div class="stage_item st1" v-if="boardList[0]" @click="goMerchantPage(0)">
-                <div 
-                    class="st_img bg_img"
-                    :style="'background-image: url('+boardList[0].logo+');'"></div>
-                <div class="st_name ellipsis">{{boardList[0].name}}</div>
-                <div class="st_hot"><span>热度</span>{{boardList[0].hotNum}}</div>
-            </div>
-
-            <!-- 第二名 -->
-            <div class="stage_item st2" v-if="boardList[1]" @click="goMerchantPage(1)">
-                <div 
-                    class="st_img bg_img"
-                    :style="'background-image: url('+boardList[1].logo+');'"></div>
-                <div class="st_name ellipsis">{{boardList[1].name}}</div>
-                <div class="st_hot"><span>热度</span>{{boardList[1].hotNum}}</div>
-            </div>
-
-            <!-- 第三名 -->
-            <div class="stage_item st3" v-if="boardList[2]" @click="goMerchantPage(2)">
-                <div 
-                    class="st_img bg_img"
-                    :style="'background-image: url('+boardList[2].logo+');'"></div>
-                <div class="st_name ellipsis">{{boardList[2].name}}</div>
-                <div class="st_hot"><span>热度</span>{{boardList[2].hotNum}}</div>
-            </div>
-
             <div class="hot_list">
+                <!-- 第一名 -->
+                <div 
+                    class="hot_item"
+                    v-if="boardList[0]"
+                    @click="goMerchantPage(0)"
+                    >
+                    <div class="hot_num st1 stage_item"></div>
+                    <div class="hot_logo bg_img" :style="'background-image:url('+boardList[0].logo+');'"></div>
+                    <div class="hot_name ellipsis">{{boardList[0].name}}</div>
+                    <div class="hot_val"><span>热度</span>{{boardList[0].hotNum}}</div>
+                </div>
+                <!-- 第二名 -->
+                <div
+                    class="hot_item bt"
+                    v-if="boardList[1]"
+                    @click="goMerchantPage(1)"
+                    >
+                    <div class="hot_num st2 stage_item"></div>
+                    <div class="hot_logo bg_img" :style="'background-image:url('+boardList[1].logo+');'"></div>
+                    <div class="hot_name ellipsis">{{boardList[1].name}}</div>
+                    <div class="hot_val"><span>热度</span>{{boardList[1].hotNum}}</div>
+                </div>
+                <!-- 第三名 -->
+                <div 
+                    class="hot_item bt"
+                    v-if="boardList[2]"
+                    @click="goMerchantPage(2)"
+                    >
+                    <div class="hot_num st3 stage_item"></div>
+                    <div class="hot_logo bg_img" :style="'background-image:url('+boardList[2].logo+');'"></div>
+                    <div class="hot_name ellipsis">{{boardList[2].name}}</div>
+                    <div class="hot_val"><span>热度</span>{{boardList[2].hotNum}}</div>
+                </div>
                 <div 
                     class="hot_item bt"
                     @click="goMerchantPage(index+3)"
@@ -152,28 +158,11 @@
         border-radius: .28rem .28rem 0 0;
         position: relative;
         top: -.28rem;
-        padding: 1.99rem .3rem .5rem;
-    }
-
-    .stage_box:before {
-        content: '';
-        width: 2.86rem;
-        height: 1.46rem;
-        position: absolute;
-        left: 0;
-        right: 0;
-        margin: auto;
-        top: -.3rem;
-        background: url(http://gaif.oss-cn-hangzhou.aliyuncs.com/dc/fist.png);
-        -webkit-background-size: 100% 100%;
-        background-size: 100% 100%;
+        padding: .4rem .3rem .5rem;
     }
 
     .stage_item {
-        width: 1.87rem;
-        text-align: center;
-        height: 2.3rem;
-        position: absolute;
+        position: relative;
     }
 
     .st_img {
@@ -208,35 +197,18 @@
         width: .42rem;
         height: .36rem;
         position: absolute;
-        left: 0;
-        right: 0;
+        left: -.1rem;
+        top: 0;
+        bottom: 0;
         margin: auto;
         background: url(http://gaif.oss-cn-hangzhou.aliyuncs.com/dc/xxxxx/guanjun.png);
         -webkit-background-size: 100% 100%;
         background-size: 100% 100%;
-        top: -.49rem;
         z-index: 9;
-    }
-
-    .st1 {
-        left: 0;
-        right: 0;
-        margin: auto;
-        top: -.9rem;
-    }
-
-    .st2 {
-        left: .56rem;
-        top: -.6rem;
     }
 
     .st2:after {
         background-image: url(http://gaif.oss-cn-hangzhou.aliyuncs.com/dc/xxxxx/yajun.png);
-    }
-
-    .st3 {
-        right: .56rem;
-        top: -.6rem;
     }
 
     .st3:after {

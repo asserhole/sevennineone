@@ -1,10 +1,10 @@
 <template xmlns:v-quill="http://www.w3.org/1999/xhtml">
-    <!--  新增活动页面 -->
-    <div class="my-add-article">
+    <!--  修改活动页面 -->
+    <div class="my-edit-article">
 
         <topback />
 
-        <van-cell title="新增活动" style="margin-bottom:10px;" />
+        <van-cell title="修改活动" style="margin-bottom:10px;" />
         <van-cell-group>
             <van-field required clearable v-model="title" placeholder="请输入标题，32个字以内"  />
         </van-cell-group>
@@ -22,7 +22,7 @@
     import Topback from "../../components/topback";
     import 'quill/dist/quill.core.css';
     import 'quill/dist/quill.snow.css';
-    import {saveArticle} from "../../assets/services/common";
+    import {getArticleDetail, saveArticle} from "../../assets/services/common";
     export default {
         name: "addarticle",
         data(){
@@ -30,6 +30,7 @@
                 content:'',
                 title:null,
                 resultUrl:null,
+                articleId:this.$route.query.artid,
                 editorOption: {
                     // some quill options
                     modules: {
@@ -55,7 +56,8 @@
                                 ["clean"], // 清除文本格式
                                 ["link", "image", "video"]// 链接、图片、视频
                             ]
-                        },
+                        }
+                        ,
                         ImageExtend: {
                             loading: true,
                             name: 'file',              // 后端接收的文件名称
@@ -71,7 +73,6 @@
         },
         methods:{
             async saveArticle(){
-                // console.log(this.content);return;
                 if(!this.title){
                     this.$toast({
                         message: '请输入标题',
@@ -81,7 +82,8 @@
                 }
                 let res = await saveArticle({
                     title:this.title,
-                    pageText:this.content
+                    pageText:this.content,
+                    id:this.articleId
                 })
                 if (res.data > 0) {
                     this.$router.push({name:'business-article'})
@@ -91,8 +93,17 @@
                         duration: 1500
                     })
                 }
-
+            },
+            async getById(){
+                let res = await getArticleDetail({
+                    id:this.articleId
+                })
+                this.title = res.data.title
+                this.content = res.data.pageText
             }
+        },
+        mounted(){
+            this.getById()
         },
         components: {Topback}
     }

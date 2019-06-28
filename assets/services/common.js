@@ -40,7 +40,7 @@ export const saveArticle = (params)=>{
 // 文章详情
 export const getArticleDetail = (params)=>{
     return request({
-        url: `/snoArticle/detail`,
+        url: `/snoArticle/getById`,
         method: 'GET',
         data: params,
     })
@@ -51,6 +51,24 @@ export const listMyArticle = (params)=>{
     return request({
         url: `/snoArticle/listMyArticle`,
         method: 'GET',
+        data: params,
+    })
+}
+
+
+// 保存链接
+export const saveActivityLink = (params)=>{
+    return request({
+        url: `/snoActivityLink/save`,
+        method: 'POST',
+        data: params,
+    })
+}
+// 删除链接
+export const deleteLink = (params)=>{
+    return request({
+        url: `/snoActivityLink/delete`,
+        method: 'get',
         data: params,
     })
 }

@@ -9,6 +9,7 @@
 <script>
     import Topback from "~/components/topback";
     import Article from '~/components/article'
+    import {getArticleDetail} from "../../../../assets/services/common";
     export default {
         name: "index",
         data(){
@@ -20,7 +21,7 @@
         methods:{
             async getArticleDetail(){
                 let res = await getArticleDetail({
-                    articleId:this.articleId
+                    id:this.articleId
                 })
                 this.article = res.data
             }

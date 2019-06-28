@@ -30,7 +30,7 @@
 
         <!-- 微信咨询 -->
         <div class="wx_toast" v-if="wxToast">
-            <div class="qr_code"><img src="http://gaif.oss-cn-hangzhou.aliyuncs.com/dc/gift/qrcode.png" ></div>
+            <div class="qr_code"><img src="http://gaif.oss-cn-hangzhou.aliyuncs.com/dc/tu/ccc.png" ></div>
             <p>请长按上方二维码加客服咨询</p>
             <div @click="wxToast=false" class="close_btn"></div>
         </div>
@@ -98,7 +98,7 @@
                 }
             },
             phoneCall() {
-                window.location.href = 'tel://18682360850';
+                window.location.href = 'tel://18573023745';
             }
         },
         mounted() {

@@ -57,6 +57,9 @@
                                 <span>梦想课程</span>
                                 <span>{{replyDetail.subjectName}}</span>
                             </p>
+                            <p @click="shareOverlayShow=true" class="encourage" :class="{'finish_step':currStep>=4}">
+                                <span>分享鼓励Ta&nbsp;</span>
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -79,9 +82,7 @@
                                    aria-hidden="true"></i>
                                 <span>梦想成真&nbsp;<br />免费入学&nbsp;</span>
                             </p>
-                            <p @click="shareOverlayShow=true" :class="{'finish_step':currStep>=4}">
-                                <span>分享鼓励Ta&nbsp;</span>
-                            </p>
+                            
                         </div>
                         <no-ssr placeholder="Loading...">
                             <radial-progress-bar :diameter="150"
@@ -158,7 +159,7 @@
                         <img src="http://gaif.oss-cn-hangzhou.aliyuncs.com/dc/gift/p2.png">
                         <p>价值3600元趣学卡一张</p>
                     </div>
-                    <div class="d_title"><img src="http://gaif.oss-cn-hangzhou.aliyuncs.com/dc/gift/i2.png"></div>
+                    <div class="d_title d_title2"><img src="http://gaif.oss-cn-hangzhou.aliyuncs.com/dc/tu/2.svg"></div>
                     <div class="d_shop_box">
                         <div
                             class="d_shop_item"
@@ -403,7 +404,7 @@
             // }
         },
         mounted() {
-            document.title = this.replyDetail.childName
+            document.title = this.replyDetail.childName + '的学习梦';
             console.log(this.replyDetail)
             console.log(this.giftRecordList)
             // this.initEchart()
@@ -485,6 +486,13 @@
 </script>
 
 <style scoped>
+    .encourage {
+        position: absolute;
+        top: 0;
+        right: 0;
+        color: #FF4040!important;
+        font-size: .27rem;
+    }
     .description_text {
         text-indent: 2em;
         color: #636A7C;
@@ -649,6 +657,7 @@
 
     .reply_detail_childPhoto {
         display: flex;
+        position: relative;
     }
 
     .reply_detail_childPhoto img {
@@ -839,6 +848,11 @@
         width: 3rem;
         height: .54rem;
         margin: 0 auto .4rem;
+    }
+
+    .d_title2 {
+        width: 2.51rem;
+        height: .37rem;
     }
 
     .d_title>img {

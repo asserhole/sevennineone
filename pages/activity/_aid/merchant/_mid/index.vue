@@ -101,6 +101,13 @@
                 <p class="a-merchant_content_hst">商家介绍</p>
                 <div class="a-merchant-content-suitem pbval">
                     <p style="color:#666;font-size:13px;">{{merchant.description}}</p>
+                <div class="a-merchant-content-suitem">
+                    <p style="color:#666;font-size:13px;margin-bottom:10px;text-indent: 2em">{{merchant.description}}</p>
+                    <van-image
+                            v-for="r in merchant.imgList"
+                            lazy-load
+                            :src="r.url"
+                    />
                 </div>
 
             </div>

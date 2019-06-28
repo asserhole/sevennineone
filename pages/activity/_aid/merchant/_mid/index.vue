@@ -86,11 +86,13 @@
                     <div class="a-merchant_hisRe_img">
                         <img :src="r.imageList[0]"/>
                     </div>
-                    <span class="a-merchant_content_hst_name" style="margin-left:5px;">
-                        {{r.childName}}
-                        <span style="font-weight:normal">报名了{{r.subjectName}}课程</span>
-                    </span>
-                    <span style="margin-left:auto;" class="gray">{{r.createTime.substr(0,16)}}</span>
+                    <div>
+                        <div class="a-merchant_content_hst_name">
+                            {{r.childName}}
+                            <span style="font-weight:normal">报名了{{r.subjectName}}课程</span>
+                        </div>
+                        <div style="margin-top:.05rem" class="gray">{{r.createTime.substr(0,16)}}</div>
+                    </div>
                 </div>
                 <div v-if="replyHistoryTotal===0" class="a-merchant_hisRe_item">
                     <p class="gray">暂无信息</p>
@@ -100,7 +102,7 @@
             <div class="a-merchant_content_sub clearfix">
                 <p class="a-merchant_content_hst">商家介绍</p>
                 <div class="a-merchant-content-suitem">
-                    <p style="color:#666;font-size:13px;margin-bottom:10px;text-indent: 2em">{{merchant.description}}</p>
+                    <p v-html="merchant.description" style="color:#666;font-size:13px;margin-bottom:10px;text-indent: 2em"></p>
                     <van-image
                             v-for="r in merchant.imgList"
                             lazy-load
@@ -289,6 +291,7 @@
         overflow: hidden;
         background-attachment: fixed;
         background-repeat: no-repeat;
+        background-position: center top;
         background-size: 100%;
         position: relative;
     }
@@ -310,7 +313,7 @@
     }
     .a-merchant_content_sub{
         background-color: white;
-        padding:20px 15px 0 15px;
+        padding:20px 15px 15px 15px;
         margin-bottom:10px;
     }
     .a-merchant-title{
@@ -476,7 +479,6 @@
         font-size: 14px;
         font-weight: bold;
         margin-right:5px;
-        width: 3.5rem;
     }
     .a-merchant_hisre_item_tw{
         background-color: #f6f8fa;

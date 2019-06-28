@@ -57,6 +57,9 @@
                                 <span>梦想课程</span>
                                 <span>{{replyDetail.subjectName}}</span>
                             </p>
+                            <p @click="shareOverlayShow=true" class="encourage" :class="{'finish_step':currStep>=4}">
+                                <span>分享鼓励Ta&nbsp;</span>
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -79,9 +82,7 @@
                                    aria-hidden="true"></i>
                                 <span>梦想成真&nbsp;<br />免费入学&nbsp;</span>
                             </p>
-                            <p @click="shareOverlayShow=true" :class="{'finish_step':currStep>=4}">
-                                <span>分享鼓励Ta&nbsp;</span>
-                            </p>
+                            
                         </div>
                         <no-ssr placeholder="Loading...">
                             <radial-progress-bar :diameter="150"
@@ -110,8 +111,8 @@
                             <p :class="{'finish_step':currStep>=2}">
                                 <i class="fa" :class="{'fa-circle':currStep>=2,'fa-circle-o':currStep<2}"
                                    aria-hidden="true">&nbsp;</i>
-                                <span>获得联盟卡</span>
-                                <i class="fa fa-question-circle" @click="recommend(1)" aria-hidden="true"></i>
+                                <span>进度19颗爱心,获得趣学卡</span>
+                                <!-- <i class="fa fa-question-circle" @click="recommend(1)" aria-hidden="true"></i> -->
                             </p>
                         </div>
                     </div>
@@ -130,13 +131,13 @@
                     </div>
                     <div class="reply_progress_detail">
                         <p v-if="replyDetail.paidFee < replyDetail.totalFee">
-                            我是{{replyDetail.childName}}，我的梦想课程需要学费
+                            我是{{replyDetail.childName}}，我的梦想课程需要攒
                             <span class="reply_progress_detail_imp">{{replyDetail.totalFee/100}}</span>
-                            元，已完成
+                            颗爱心，已完成
                             <span class="reply_progress_detail_imp">{{replyDetail.paidFee/100}}</span>
-                            元，还差
+                            颗，还差
                             <span class="reply_progress_detail_imp">{{replyDetail.totalFee/100 - replyDetail.paidFee/100}}</span>
-                            元，请支持一下我的梦想吧！
+                            颗，请支持我吧！
                         </p>
                         <p v-if="replyDetail.paidFee == replyDetail.totalFee">
                             您已成功报名入学.
@@ -150,15 +151,16 @@
                         {{replyDetail.activityDescription}}
                     </div>
                     <div class="d_title"><img src="http://gaif.oss-cn-hangzhou.aliyuncs.com/dc/gift/i1.png"></div>
-                    <div class="d_item">
+                    <div class="gift_imgs"><img src="http://gaif.oss-cn-hangzhou.aliyuncs.com/dc/tu/gg.png"></div>
+                    <!-- <div class="d_item">
                         <img src="http://gaif.oss-cn-hangzhou.aliyuncs.com/dc/gift/p1.png">
                         <p>价值199元学习桌椅</p>
                     </div>
                     <div class="d_item">
                         <img src="http://gaif.oss-cn-hangzhou.aliyuncs.com/dc/gift/p2.png">
                         <p>价值3600元趣学卡一张</p>
-                    </div>
-                    <div class="d_title"><img src="http://gaif.oss-cn-hangzhou.aliyuncs.com/dc/gift/i2.png"></div>
+                    </div> -->
+                    <div class="d_title d_title2"><img src="http://gaif.oss-cn-hangzhou.aliyuncs.com/dc/tu/2.svg"></div>
                     <div class="d_shop_box">
                         <div
                             class="d_shop_item"
@@ -403,7 +405,7 @@
             // }
         },
         mounted() {
-            document.title = this.replyDetail.childName
+            document.title = this.replyDetail.childName + '的学习梦';
             console.log(this.replyDetail)
             console.log(this.giftRecordList)
             // this.initEchart()
@@ -485,6 +487,13 @@
 </script>
 
 <style scoped>
+    .encourage {
+        position: absolute;
+        top: 0;
+        right: 0;
+        color: #FF4040!important;
+        font-size: .27rem;
+    }
     .description_text {
         text-indent: 2em;
         color: #636A7C;
@@ -649,6 +658,7 @@
 
     .reply_detail_childPhoto {
         display: flex;
+        position: relative;
     }
 
     .reply_detail_childPhoto img {
@@ -734,12 +744,10 @@
 
     .reply_detail_progress_step_l p:first-child {
         text-align: right;
-        margin-right: -10px;
     }
 
     .reply_detail_progress_step_l p:last-child {
         text-align: right;
-        margin-right: -10px;
     }
 
     .progress_center {
@@ -841,6 +849,11 @@
         margin: 0 auto .4rem;
     }
 
+    .d_title2 {
+        width: 2.51rem;
+        height: .37rem;
+    }
+
     .d_title>img {
         width: 100%;
         height: 100%;
@@ -873,7 +886,6 @@
 
     .d_shop_box {
         width: 6.8rem;
-        height: 4.58rem;
         border: .11rem solid #F9D37E;
         border-radius: .4rem;
         margin: 0 auto;
@@ -930,6 +942,11 @@
         -webkit-border-radius: 8px;
         -moz-border-radius: 8px;
         border-radius: 8px;
+    }
+
+    .gift_imgs img {
+        width: 100%;
+        margin-bottom: .5rem;
     }
 </style>
 <style>

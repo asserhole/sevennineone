@@ -267,6 +267,7 @@
         position: relative;
         background-size: cover;
         background-repeat: no-repeat;
+        background-position: center center;
     }
     .a-head img{
         width:100%;

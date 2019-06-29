@@ -157,8 +157,8 @@
 
     .bg_img {
       background-repeat: no-repeat;
-      -webkit-background-size: cover;
-      background-size: cover;
+      -webkit-background-size: contain;
+      background-size: contain;
       background-position: center center;
     }
 

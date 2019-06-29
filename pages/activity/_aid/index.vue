@@ -57,7 +57,8 @@
                 <input 
                     v-model="sParams.word" 
                     v-focus 
-                    type="text" 
+                    type="text"
+                    @keydown="inputEvent()"
                     placeholder="请输入机构或学生姓名查询"
                     @keyup.enter="searchByWords()">
             </div>
@@ -87,6 +88,10 @@
                     <div>{{item.childName}}</div>
                 </div>
             </div>
+            <div v-else-if="sParams.word && noDataDom" class="list_box nodata">
+                <img src="http://gaif.oss-cn-hangzhou.aliyuncs.com/dc/cart/nodata1.svg">
+                <span>没有查到与 {{sParams.word}} 相关的信息</span>
+            </div>
         </div>
         <p style="color:#999;margin-top:20px;text-align: center">趣教育——全民助学，圆孩子一个学习梦</p>
     </div>
@@ -107,6 +112,7 @@
         name: "index",
         data(){
             return {
+                noDataDom: false,
                 searchToast: false,
                 userinfo:{},
                 sParams: {
@@ -134,6 +140,11 @@
             }
         },
         methods:{
+            inputEvent() {
+                var that = this;
+                if (!that.noDataDom) return;
+                that.noDataDom = false;
+            },
             goMerchantPage(index){
                 this.$router.push({name:'activity-aid-merchant-mid',params:{aid:this.aid,mid:this.boardList[index].id}})
             },
@@ -144,6 +155,7 @@
                 var that = this;
                 const res = await search(that.sParams)
                 var d = res.data;
+                that.noDataDom = true;
                 that.list1 = d.merchantList;
                 that.list2 = d.childList;
             },
@@ -256,6 +268,22 @@
 </script>
 
 <style scoped>
+    .nodata {
+      padding-top: 2rem!important;
+      text-align: center;
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      font-size: 0.28rem;
+      color: #aaa;
+      background: #fff;
+    }
+
+    .nodata img {
+      width: 1.42rem;
+      height: 1.25rem;
+      margin: 0.2rem 0;
+    }
     #activityIndex {
         padding-bottom: 1.2rem;
         background: #fff;

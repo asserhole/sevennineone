@@ -246,7 +246,7 @@
                 ],
                 wx => {
                     wx.onMenuShareTimeline({
-                        title: that.activityPO.name, // 分享标题
+                        title: that.activityPO.name + ',火热进行中，0元上学名额等你拿', // 分享标题
                         link: 'window.location.href', // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
                         imgUrl: 'https://sevennineone.oss-cn-hangzhou.aliyuncs.com/default/c31514038096dc04c14d51d87aed06ee.png', // 分享图标
                         success: function () {
@@ -254,8 +254,8 @@
                         }
                     })
                     wx.onMenuShareAppMessage({
-                        title: that.activityPO.name, // 分享标题
-                        desc: '99元享抵扣学费、体验活动所有商家课程好礼', // 分享描述
+                        title: that.activityPO.name + ',火热进行中，0元上学名额等你拿', // 分享标题
+                        desc: '免费报名，积攒助学爱心全联盟体验课任意上，更有趣学大礼包和0元入学等你来拿。    趣教育—-让课外教育更有趣！', // 分享描述
                         link: window.location.href, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
                         imgUrl: 'https://sevennineone.oss-cn-hangzhou.aliyuncs.com/default/c31514038096dc04c14d51d87aed06ee.png', // 分享图标
                         success: function () {

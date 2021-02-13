@@ -1,4 +1,4 @@
-<template>
+<template xmlns:v-quill="http://www.w3.org/1999/xhtml">
     <!-- 商家入驻页面 -->
     <div class="merchant_join">
         <topback />
@@ -47,14 +47,6 @@
                             label="一句话介绍"
                             placeholder="不超过100字"
                     />
-                    <van-field
-                            v-model="merchant.description"
-                            label="简介"
-                            type="textarea"
-                            placeholder="请输入机构简介，不超过1000字"
-                            rows="1"
-                            autosize
-                    />
                 </van-cell-group>
                 <div class="js-form-area">
                     <span>上传logo</span>
@@ -84,6 +76,21 @@
                         <img v-for="r in merchantImgList" :src="r" />
                     </div>
                 </div>
+                <van-field
+                        label="简介"
+                        disable
+                        type="textarea"
+                        disabled
+                        placeholder="请在下方文本编辑器内输入简介"
+                        rows="1"
+                        autosize
+                />
+                <div class="quill-editor"
+                     v-model="merchant.description"
+                     v-quill:myQuillEditor="editorOption">
+                </div>
+
+
             </div>
 
             <!-- 城市选择器 -->
@@ -115,6 +122,8 @@
     import {getMerchantJoinInfo, saveMerchant} from "../../assets/services/shopping";
     import {getCookie, setCookie} from "../../assets/utils/util";
     import {accessToken, token} from "../../assets/services/user";
+    import 'quill/dist/quill.core.css';
+    import 'quill/dist/quill.snow.css';
 
     export default {
         name: "join",
@@ -143,6 +152,42 @@
                     banner:'',
                     merchantImgList:[],  // 上传的服务器图片id
                     poster:null
+                },
+                editorOption: {
+                    // some quill options
+                    modules: {
+                        toolbar: {
+                            handlers: {
+                                'image': function () {
+                                    window.QuillWatch.emit(this.quill.id)
+                                }
+                            },
+                            container:[
+                                ["bold", "italic", "underline", "strike"], // 加粗 斜体 下划线 删除线
+                                // ["blockquote", "code-block"], // 引用  代码块
+                                [{header:1 }, {header:2 }], // 1、2 级标题
+                                [{ list: "ordered" }, { list: "bullet" }], // 有序、无序列表
+                                // [{ script: "sub" }, { script: "super" }], // 上标/下标
+                                [{ indent: "-1" }, { indent: "+1" }], // 缩进
+                                // [{'direction': 'rtl'}],                         // 文本方向
+                                // [{ size: ["small", false, "large", "huge"] }], // 字体大小
+                                // [{ header: [1, 2, 3, 4, 5, 6, false] }], // 标题
+                                [{ color: [] }, { background: [] }], // 字体颜色、字体背景颜色
+                                // [{ font: [] }], // 字体种类
+                                // [{ align: [] }], // 对齐方式
+                                ["clean"], // 清除文本格式
+                                ["link", "image", "video"]// 链接、图片、视频
+                            ]
+                        },
+                        ImageExtend: {
+                            loading: true,
+                            name: 'file',              // 后端接收的文件名称
+                            action: 'https://www.djtp.com/api/image/upload', // 后端接收文件api
+                            response: (res) => {
+                                return res.data // 此处返回的值一定要直接是后端回馈的图片在服务器的存储路径如：/images/xxx.jpg
+                            }
+                        },
+                    }
                 }
             }
         },

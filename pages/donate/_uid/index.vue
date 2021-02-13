@@ -426,7 +426,7 @@
                 ],
                 wx => {
                     wx.onMenuShareTimeline({
-                        title: that.replyDetail.childName + '的入学进度，来助他一臂之力吧！',  // 分享标题
+                        title: '大家好，我是'+that.replyDetail.childName+'，我有一个学习梦想，请支持我！',  // 分享标题
                         link: window.location.href.substring(0, window.location.href.indexOf("?")),   // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
                         imgUrl: that.replyDetail.imageList[0].url, // 分享图标
                         success: function () {
@@ -434,8 +434,8 @@
                         }
                     })
                     wx.onMenuShareAppMessage({
-                        title: that.replyDetail.childName + '的入学进度，来助他一臂之力吧！', // 分享标题
-                        desc: '我想上' + that.replyDetail.merchantName + '的' + that.replyDetail.categoryName + '课程', // 分享描述
+                        title: '大家好，我是'+that.replyDetail.childName+'，我有一个学习梦想，请支持我！', // 分享标题
+                        desc: '少年强则中国强、少年智则中国智！我希望去' + that.replyDetail.merchantName + '的' + that.replyDetail.subjectName + '学习，谢谢鼓励', // 分享描述
                         link: window.location.href.substring(0, window.location.href.indexOf("?")), // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
                         imgUrl: that.replyDetail.imageList[0].url, // 分享图标
                         success: function () {

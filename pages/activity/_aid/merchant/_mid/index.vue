@@ -260,7 +260,7 @@
                 ],
                 wx => {
                     wx.onMenuShareTimeline({
-                        title: that.merchant.name, // 分享标题
+                        title: that.merchant.name + '正在参加爱心助学活动，0元入学快来报名吧！', // 分享标题
                         link: 'window.location.href', // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
                         imgUrl: that.merchant.logo, // 分享图标
                         success: function () {
@@ -268,8 +268,8 @@
                         }
                     })
                     wx.onMenuShareAppMessage({
-                        title: that.merchant.name, // 分享标题
-                        desc: '一览无余，全透明课程任你选', // 分享描述
+                        title: that.merchant.name + '正在参加爱心助学活动，0元入学快来报名吧！', // 分享标题
+                        desc: that.merchant.poster + '免费报名，积攒爱心免费体验，0元入学，名额有限火速围观!' , // 分享描述
                         link: window.location.href, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
                         imgUrl: that.merchant.logo, // 分享图标
                         success: function () {
